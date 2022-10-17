@@ -24,5 +24,6 @@ const styles = (fontSize) =>
     },
     text: {
       fontSize,
+      fontFamily: "FiraCode",
     },
   });

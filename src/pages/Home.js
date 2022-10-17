@@ -17,12 +17,12 @@ export default function Home({ navigation }) {
       <Logo fontSize={70} />
       <CustomButton
         text="Sign In"
-        fontSize={12}
+        fontSize={30}
         handlePress={handleSignInPress}
       />
       <CustomButton
         text="Sign Up"
-        fontSize={12}
+        fontSize={30}
         handlePress={handleSignOutPress}
       />
     </Layout>
