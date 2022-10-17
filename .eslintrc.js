@@ -27,6 +27,7 @@ module.exports = {
     react: {
       version: "detect",
     },
+    "import/ignore": ["react-native"],
   },
   ignorePatterns: ["!.eslintrc.js", "!.prettierrc.json"],
 };
