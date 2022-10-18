@@ -13,5 +13,6 @@ const styles = (fontSize) =>
   StyleSheet.create({
     logo: {
       fontSize,
+      fontFamily: "Playball",
     },
   });
