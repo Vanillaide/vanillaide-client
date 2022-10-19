@@ -3,7 +3,8 @@ import { StyleSheet, View, Dimensions } from "react-native";
 
 import { CONTENT } from "../constants/color";
 
-const { width: screenWidth } = Dimensions.get("window");
+const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+const contentBoxHeight = (screenHeight * 11) / 12;
 
 export default function ContentBox({ children }) {
   return <View style={styles.container}>{children}</View>;
@@ -15,10 +16,10 @@ ContentBox.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 11,
     alignItems: "center",
     justifyContent: "center",
     width: screenWidth,
+    height: contentBoxHeight,
     backgroundColor: CONTENT,
   },
 });
