@@ -3,7 +3,7 @@ import { Alert } from "react-native";
 import { FAILED_SIGNUP, INTERNAL_SERVER_ERROR } from "../constants/error";
 import axiosInstance from "./axiosInstance";
 
-async function postSignup(username, email, password, passwordConfirm) {
+async function postSignUp(username, email, password, passwordConfirm) {
   try {
     const result = await axiosInstance.post("/api/auth/signup", {
       username,
@@ -26,4 +26,4 @@ async function postSignup(username, email, password, passwordConfirm) {
   }
 }
 
-export default { postSignup };
+export default { postSignUp };

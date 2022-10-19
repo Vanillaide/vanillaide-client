@@ -55,7 +55,7 @@ export default function SignUp({ navigation }) {
     });
 
     if (isAllValid) {
-      const status = await api.postSignup(
+      const status = await api.postSignUp(
         username,
         email,
         password,
