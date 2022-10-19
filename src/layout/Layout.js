@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions, StatusBar } from "react-native";
 
 import { CONTENT } from "../constants/color";
 
-const { width: screenWidth } = Dimensions.get("window");
+const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+const statusBarHeight = StatusBar.currentHeight;
 
 export default function Layout({ children }) {
   return <View style={styles.container}>{children}</View>;
@@ -15,10 +16,11 @@ Layout.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    marginTop: statusBarHeight,
     alignItems: "center",
     justifyContent: "center",
     width: screenWidth,
+    height: screenHeight,
     backgroundColor: CONTENT,
   },
 });

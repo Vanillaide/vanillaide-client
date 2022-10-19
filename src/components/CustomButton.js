@@ -20,9 +20,12 @@ CustomButton.propTypes = {
 const styles = (fontSize) =>
   StyleSheet.create({
     button: {
+      justifyContent: "center",
+      alignItems: "center",
       backgroundColor: BUTTON_COLOR,
     },
     text: {
       fontSize,
+      fontFamily: "FiraCode",
     },
   });

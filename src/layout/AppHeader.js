@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import { StyleSheet, View, Dimensions, StatusBar } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 
 import { HEADER } from "../constants/color";
 
-const { width: screenWidth } = Dimensions.get("window");
-const statusBarHeight = StatusBar.currentHeight;
+const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+const appHeaderHeight = screenHeight / 12;
 
 export default function AppHeader({ children }) {
   return <View style={styles.container}>{children}</View>;
@@ -16,13 +16,11 @@ AppHeader.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
-    height: 66,
-    marginTop: statusBarHeight,
     alignItems: "center",
     justifyContent: "space-around",
     width: screenWidth,
+    height: appHeaderHeight,
     backgroundColor: HEADER,
   },
 });
