@@ -83,12 +83,13 @@ export default function SignUp({ navigation }) {
             <Text style={style.title}>Sign Up</Text>
           </View>
           <View style={style.formContainer}>
-            <Text style={style.label}>name</Text>
+            <View style={style.labelContainer}>
+              <Text style={style.label}>name</Text>
+            </View>
             <View style={style.inputContainer}>
               <TextInput
                 style={style.input}
                 autoCorrect={false}
-                placeholder="Enter your name"
                 value={userInput.username}
                 onChangeText={(text) => {
                   setUserInput((prev) => {
@@ -97,7 +98,7 @@ export default function SignUp({ navigation }) {
                 }}
               />
             </View>
-            {errorMsg && <Text style={style.errorMsg}>{errorMsg.name}</Text>}
+            <Text style={style.errorMsg}>{errorMsg.name}</Text>
           </View>
           <View style={style.formContainer}>
             <Text style={style.label}>email</Text>
@@ -105,7 +106,6 @@ export default function SignUp({ navigation }) {
               <TextInput
                 style={style.input}
                 autoCorrect={false}
-                placeholder="Enter your email"
                 value={userInput.email}
                 onChangeText={(text) => {
                   setUserInput((prev) => {
@@ -114,9 +114,7 @@ export default function SignUp({ navigation }) {
                 }}
               />
             </View>
-            {errorMsg.email && (
-              <Text style={style.errorMsg}>{errorMsg.email}</Text>
-            )}
+            <Text style={style.errorMsg}>{errorMsg.email}</Text>
           </View>
           <View style={style.formContainer}>
             <Text style={style.label}>password</Text>
@@ -125,7 +123,6 @@ export default function SignUp({ navigation }) {
                 style={style.input}
                 secureTextEntry
                 autoCorrect={false}
-                placeholder="Enter your password"
                 value={userInput.password}
                 onChangeText={(text) => {
                   setUserInput((prev) => {
@@ -134,9 +131,7 @@ export default function SignUp({ navigation }) {
                 }}
               />
             </View>
-            {errorMsg.password && (
-              <Text style={style.errorMsg}>{errorMsg.password}</Text>
-            )}
+            <Text style={style.errorMsg}>{errorMsg.password}</Text>
           </View>
           <View style={style.formContainer}>
             <Text style={style.label}>password confirm</Text>
@@ -145,7 +140,6 @@ export default function SignUp({ navigation }) {
                 style={style.input}
                 secureTextEntry
                 autoCorrect={false}
-                placeholder="Enter your password confirm"
                 value={userInput.passwordConfirm}
                 onChangeText={(text) => {
                   setUserInput((prev) => {
@@ -154,9 +148,7 @@ export default function SignUp({ navigation }) {
                 }}
               />
             </View>
-            {errorMsg.passwordConfirm && (
-              <Text style={style.errorMsg}>{errorMsg.passwordConfirm}</Text>
-            )}
+            <Text style={style.errorMsg}>{errorMsg.passwordConfirm}</Text>
           </View>
           <CustomButton
             text="Sign Up"
@@ -178,16 +170,22 @@ SignUp.propTypes = {
 const style = StyleSheet.create({
   formContainer: {
     marginBottom: 20,
+    width: 300,
   },
   titleWrapper: {
     alignItems: "center",
   },
   title: {
     fontSize: 30,
+    fontFamily: "FiraCode",
     color: "lightgrey",
   },
+  labelContainer: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+  },
   label: {
-    marginVertical: 5,
+    fontFamily: "FiraCode",
     color: "lightgrey",
   },
   inputContainer: {
@@ -198,10 +196,12 @@ const style = StyleSheet.create({
     borderRadius: 5,
   },
   input: {
-    paddingRight: 100,
-    paddingLeft: 20,
+    fontFamily: "FiraCode",
+    paddingLeft: 12,
+    width: "100%",
   },
   errorMsg: {
+    fontFamily: "FiraCode",
     fontSize: 10,
     color: "red",
   },

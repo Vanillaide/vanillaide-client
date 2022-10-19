@@ -7,7 +7,7 @@ function isValidName(name, setErrorMsg) {
   if (!name) {
     setErrorMsg((prev) => ({
       ...prev,
-      name: "Please make sure to enter your name",
+      name: "Enter your name",
     }));
 
     return false;
@@ -16,7 +16,7 @@ function isValidName(name, setErrorMsg) {
   if (NAME_REGEX.test(name) === false) {
     setErrorMsg((prev) => ({
       ...prev,
-      name: "InValid name. Please enter Enligsh or Korean name",
+      name: "Enter Enligsh or Korean name",
     }));
 
     return false;
@@ -29,7 +29,7 @@ function isValidEmail(email, setErrorMsg) {
   if (!email) {
     setErrorMsg((prev) => ({
       ...prev,
-      email: "Please make sure to enter your email",
+      email: "Enter your email",
     }));
 
     return false;
@@ -51,7 +51,7 @@ function isValidPassword(password, setErrorMsg) {
   if (!password) {
     setErrorMsg((prev) => ({
       ...prev,
-      password: "Plase make sure to enter password",
+      password: "Enter password",
     }));
 
     return false;
@@ -60,7 +60,7 @@ function isValidPassword(password, setErrorMsg) {
   if (!PASSWORD_REGEX.test(password)) {
     setErrorMsg((prev) => ({
       ...prev,
-      password: "You can only use between 8-20 digits of numbers and alphabets",
+      password: "8-20 digits of numbers and alphabets only",
     }));
 
     return false;
@@ -73,7 +73,7 @@ function isValidPasswordConfirm(passwordConfirm, password, setErrorMsg) {
   if (!passwordConfirm) {
     setErrorMsg((prev) => ({
       ...prev,
-      passwordConfirm: "Please make sure to enter password confirm",
+      passwordConfirm: "Enter password confirm",
     }));
 
     return false;
@@ -82,8 +82,7 @@ function isValidPasswordConfirm(passwordConfirm, password, setErrorMsg) {
   if (passwordConfirm !== password) {
     setErrorMsg((prev) => ({
       ...prev,
-      passwordConfirm:
-        "Please make sure to enter password confirm same as password",
+      passwordConfirm: "Enter password confirm same as password",
     }));
 
     return false;
