@@ -9,3 +9,5 @@ export const DARK_GREY_100 = "#3D4148";
 export const BLACK = "#000000";
 export const WHITE = "#FFFFFF";
 export const RED_50 = "#B22222";
+export const DARK_BLUE_50 = "#1D2229";
+export const DARK_BLUE_100 = "#262C35";
