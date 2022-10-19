@@ -14,13 +14,13 @@ async function postSignUp(username, email, password, passwordConfirm) {
 
     return result.status;
   } catch (err) {
-    const { status } = err.response;
+    const errorStatus = err.response.status;
 
-    if (status === 400) {
+    if (errorStatus === 400) {
       Alert.alert(FAILED_SIGNUP);
     }
 
-    if (status === 500) {
+    if (errorStatus === 500) {
       Alert.alert(INTERNAL_SERVER_ERROR);
     }
   }
