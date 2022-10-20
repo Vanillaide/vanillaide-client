@@ -6,6 +6,7 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 import api from "../api/api";
 import CustomButton from "../components/CustomButton";
 import Logo from "../components/Logo";
+import { LIGHT_GREY_50, WHITE, RED_50 } from "../constants/color";
 import { UserContext } from "../contexts/AuthProvider";
 import AppHeader from "../layout/AppHeader";
 import ContentBox from "../layout/ContentBox";
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
   input: {
     width: 300,
     height: 50,
-    backgroundColor: "#D9D9D9",
+    backgroundColor: LIGHT_GREY_50,
     borderRadius: 10,
     paddingLeft: 15,
     fontSize: 15,
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
     fontFamily: "FiraCode",
     fontStyle: "normal",
     fontSize: 15,
-    color: "#DCDCDC",
+    color: WHITE,
   },
   title: {
     flex: 3,
@@ -162,13 +163,13 @@ const styles = StyleSheet.create({
     fontFamily: "FiraCode",
     fontStyle: "normal",
     fontSize: 50,
-    color: "#DCDCDC",
+    color: WHITE,
   },
   errorText: {
     fontFamily: "FiraCode",
     fontStyle: "normal",
     fontSize: 15,
-    color: "#ED4E4E",
+    color: RED_50,
     marginLeft: 10,
   },
   textWrapper: {
