@@ -37,7 +37,9 @@ export default function ProjectCard({
           </View>
         )}
         <TouchableOpacity
-          onPress={() => handleDetailPress(projectId, deployState)}
+          onPress={() =>
+            handleDetailPress(projectId, projectName, code, deployState)
+          }
         >
           <Entypo name="dots-three-vertical" size={22} color={BLACK} />
         </TouchableOpacity>

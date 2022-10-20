@@ -33,6 +33,12 @@ export default function ProjectList({ navigation }) {
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [detailsClickedProject, setDetailsClickedProject] = useState({
     projectId: "",
+    projectName: "",
+    code: {
+      html: "",
+      css: "",
+      js: "",
+    },
     deployState: null,
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -98,8 +104,8 @@ export default function ProjectList({ navigation }) {
     setIsCreateModalVisible(false);
   };
 
-  const handleDetailPress = (projectId, deployState) => {
-    setDetailsClickedProject({ projectId, deployState });
+  const handleDetailPress = (projectId, projectName, code, deployState) => {
+    setDetailsClickedProject({ projectId, projectName, code, deployState });
     setIsDetailModalVisible(true);
   };
 
@@ -111,6 +117,18 @@ export default function ProjectList({ navigation }) {
 
       navigation.replace("ProjectList");
     }
+  };
+
+  const handlePerformancePress = () => {
+    setIsDetailModalVisible(false);
+    setFocusedProject(detailsClickedProject);
+    navigation.navigate("Performance");
+  };
+
+  const handleDeployPress = () => {
+    setIsDetailModalVisible(false);
+    setFocusedProject(detailsClickedProject);
+    navigation.navigate("Deploy");
   };
 
   return (
@@ -184,7 +202,9 @@ export default function ProjectList({ navigation }) {
           isVisible={isDetailModalVisible}
           projectInfo={detailsClickedProject}
           handlePress={() => setIsDetailModalVisible(false)}
-          handleDelete={() => handleDelete()}
+          handleDelete={handleDelete}
+          handlePerformancePress={handlePerformancePress}
+          handleDeployPress={handleDeployPress}
         />
       </ContentBox>
     </ScrollView>

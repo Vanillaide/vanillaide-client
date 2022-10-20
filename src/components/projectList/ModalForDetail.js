@@ -18,6 +18,8 @@ export default function ModalForDetail({
   projectInfo,
   handlePress,
   handleDelete,
+  handlePerformancePress,
+  handleDeployPress,
 }) {
   return (
     <Modal visible={isVisible} animationType="slide" transparent>
@@ -29,12 +31,12 @@ export default function ModalForDetail({
           <Text style={styles.text}>Delete</Text>
         </TouchableOpacity>
         {projectInfo.deployState && (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handlePerformancePress}>
             <Text style={styles.text}>Performance</Text>
           </TouchableOpacity>
         )}
         {!projectInfo.deployState && (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleDeployPress}>
             <Text style={styles.text}>Deploy</Text>
           </TouchableOpacity>
         )}
@@ -48,6 +50,8 @@ ModalForDetail.propTypes = {
   projectInfo: PropTypes.object.isRequired,
   handlePress: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
+  handlePerformancePress: PropTypes.func.isRequired,
+  handleDeployPress: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
