@@ -43,8 +43,6 @@ export default function SignIn({ navigation }) {
         const { user } = data;
 
         setLoggedInUser(user);
-
-        navigation.navigate("ProjectList");
       }
     }
   };
