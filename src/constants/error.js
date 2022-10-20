@@ -9,3 +9,4 @@ export const NO_PROJECT_NAME = "Please enter a new project name";
 export const MORE_THAN_MAXLENGTH = "The length should not be more than 50";
 export const FAILED_GET_PROJECTS = "Cannot load project list";
 export const FAILED_CREATE_PROJECT = "Cannot create a project";
+export const FAILED_DELETE_PROJECT = "Cannot delete a project";

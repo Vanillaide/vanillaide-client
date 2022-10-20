@@ -7,6 +7,7 @@ import {
   INTERNAL_SERVER_ERROR,
   FAILED_GET_PROJECTS,
   FAILED_CREATE_PROJECT,
+  FAILED_DELETE_PROJECT,
 } from "../constants/error";
 import axiosInstance from "./axiosInstance";
 
@@ -116,10 +117,29 @@ async function postProject(userId, projectName) {
   }
 }
 
+async function deleteProject(projectId) {
+  try {
+    const res = await axiosInstance.delete(`/api/projects/${projectId}`);
+
+    return res.status;
+  } catch (err) {
+    const errorStatus = err.response.status;
+
+    if (errorStatus === 400) {
+      Alert.alert(FAILED_DELETE_PROJECT);
+    }
+
+    if (errorStatus === 500) {
+      Alert.alert(INTERNAL_SERVER_ERROR);
+    }
+  }
+}
+
 export default {
   postSignUp,
   postLogIn,
   postAuthCheck,
   getProjects,
   postProject,
+  deleteProject,
 };

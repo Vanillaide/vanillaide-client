@@ -2,7 +2,14 @@ import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import PropTypes from "prop-types";
 import { useState, useCallback, useContext } from "react";
-import { StyleSheet, View, Text, ScrollView, StatusBar } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  ActivityIndicator,
+  StatusBar,
+} from "react-native";
 
 import api from "../api/api";
 import Logo from "../components/Logo";
@@ -28,6 +35,7 @@ export default function ProjectList({ navigation }) {
     projectId: "",
     deployState: null,
   });
+  const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
   const {
@@ -41,6 +49,7 @@ export default function ProjectList({ navigation }) {
         const { status, projects } = await api.getProjects(userId);
 
         if (status === 200) {
+          setIsLoading(false);
           setProjectList(projects);
         }
       }
@@ -86,10 +95,14 @@ export default function ProjectList({ navigation }) {
     setIsDetailModalVisible(true);
   };
 
-  const handleDelete = () => {
-    console.log(
-      "request to backend to delete project, This function needs _id information from project card, /api/projects/:projectId",
-    );
+  const handleDelete = async () => {
+    const status = await api.deleteProject(detailsClickedProject.projectId);
+
+    if (status === 200) {
+      setIsDetailModalVisible(false);
+
+      navigation.push("ProjectList");
+    }
   };
 
   return (
@@ -104,45 +117,53 @@ export default function ProjectList({ navigation }) {
         <View />
       </AppHeader>
       <ContentBox>
-        <ScrollView
-          contentContainerStyle={{ paddingTop: 0, paddingBottom: 10 }}
-        >
-          <View style={styles.pageNameWrapper}>
-            <Text style={styles.pageName}>My Projects</Text>
-          </View>
-          <View style={styles.projectListWrapper}>
-            {projectList.map((project) => {
-              const {
-                _id: projectId,
-                name,
-                htmlFile,
-                cssFile,
-                jsFile,
-                deployLink,
-              } = project;
-              const code = {
-                html: htmlFile,
-                css: cssFile,
-                js: jsFile,
-              };
+        {isLoading ? (
+          <ActivityIndicator
+            animating={isLoading}
+            size="large"
+            color={LIGHT_GREY_100}
+          />
+        ) : (
+          <ScrollView
+            contentContainerStyle={{ paddingTop: 0, paddingBottom: 10 }}
+          >
+            <View style={styles.pageNameWrapper}>
+              <Text style={styles.pageName}>My Projects</Text>
+            </View>
+            <View style={styles.projectListWrapper}>
+              {projectList.map((project) => {
+                const {
+                  _id: projectId,
+                  name,
+                  htmlFile,
+                  cssFile,
+                  jsFile,
+                  deployLink,
+                } = project;
+                const code = {
+                  html: htmlFile,
+                  css: cssFile,
+                  js: jsFile,
+                };
 
-              return (
-                <ProjectCard
-                  key={projectId}
-                  projectId={projectId}
-                  projectName={name}
-                  code={code}
-                  deployState={!!deployLink}
-                  handleCardPress={handleCardPress}
-                  handleDetailPress={handleDetailPress}
-                />
-              );
-            })}
-            <ProjectCreateButton
-              handlePress={() => setIsCreateModalVisible(true)}
-            />
-          </View>
-        </ScrollView>
+                return (
+                  <ProjectCard
+                    key={projectId}
+                    projectId={projectId}
+                    projectName={name}
+                    code={code}
+                    deployState={!!deployLink}
+                    handleCardPress={handleCardPress}
+                    handleDetailPress={handleDetailPress}
+                  />
+                );
+              })}
+              <ProjectCreateButton
+                handlePress={() => setIsCreateModalVisible(true)}
+              />
+            </View>
+          </ScrollView>
+        )}
         <ModalForCreate
           isVisible={isCreateModalVisible}
           projectName={projectNameInput}
@@ -166,6 +187,7 @@ ProjectList.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
