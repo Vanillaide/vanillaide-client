@@ -64,8 +64,8 @@ export default function SignIn({ navigation }) {
           <Text style={styles.titleText}>Sign in</Text>
         </View>
         <View style={styles.content}>
-          <View style={{ margin: 10 }}>
-            <View style={{ flexDirection: "row" }}>
+          <View style={styles.textWrapper}>
+            <View style={styles.inputWrapper}>
               <Text style={styles.text}>email</Text>
               {error.email && (
                 <Text style={styles.errorText}>{error.email}</Text>
@@ -83,8 +83,8 @@ export default function SignIn({ navigation }) {
               }}
             />
           </View>
-          <View style={{ margin: 10 }}>
-            <View style={{ flexDirection: "row" }}>
+          <View style={styles.textWrapper}>
+            <View style={styles.inputWrapper}>
               <Text style={styles.text}>password</Text>
               {error.password && (
                 <Text style={styles.errorText}>{error.password}</Text>
@@ -170,5 +170,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#ED4E4E",
     marginLeft: 10,
+  },
+  textWrapper: {
+    margin: 10,
+  },
+  inputWrapper: {
+    flexDirection: "row",
   },
 });
