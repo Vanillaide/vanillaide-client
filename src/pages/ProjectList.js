@@ -1,9 +1,10 @@
 import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import PropTypes from "prop-types";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useContext } from "react";
 import { StyleSheet, View, Text, ScrollView, StatusBar } from "react-native";
 
+import api from "../api/api";
 import Logo from "../components/Logo";
 import ModalForCreate from "../components/projectList/ModalForCreate";
 import ModalForDetail from "../components/projectList/ModalForDetail";
@@ -11,6 +12,7 @@ import ProjectCard from "../components/projectList/ProjectCard";
 import ProjectCreateButton from "../components/projectList/ProjectCreateButton";
 import { LIGHT_GREY_100, LIGHT_GREY_150, CONTENT } from "../constants/color";
 import { NO_PROJECT_NAME, MORE_THAN_MAXLENGTH } from "../constants/error";
+import { UserContext } from "../contexts/AuthProvider";
 import AppHeader from "../layout/AppHeader";
 import ContentBox from "../layout/ContentBox";
 
@@ -21,6 +23,9 @@ export default function ProjectList({ navigation }) {
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const {
+    loggedInUser: { _id: userId },
+  } = useContext(UserContext);
 
   useFocusEffect(
     useCallback(() => {
@@ -40,7 +45,7 @@ export default function ProjectList({ navigation }) {
     navigation.navigate("Editor");
   };
 
-  const handleCreatePress = () => {
+  const handleCreatePress = async () => {
     if (!projectName) {
       return setErrorMessage(NO_PROJECT_NAME);
     }
@@ -49,15 +54,15 @@ export default function ProjectList({ navigation }) {
       return setErrorMessage(MORE_THAN_MAXLENGTH);
     }
 
-    setErrorMessage("");
-    setIsCreateModalVisible(false);
+    const status = await api.postProject(userId, projectName);
 
-    console.log(
-      "request to backend to create project, /api/users/:userId/projects",
-    );
+    if (status === 201) {
+      setProjectName("");
+      setErrorMessage("");
+      setIsCreateModalVisible(false);
 
-    setProjectName("");
-    navigation.navigate("Editor");
+      navigation.navigate("Editor");
+    }
   };
 
   const handleCancelPress = () => {

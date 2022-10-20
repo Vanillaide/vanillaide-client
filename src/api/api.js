@@ -5,6 +5,7 @@ import {
   FAILED_SIGNUP,
   FAILED_LOGIN,
   INTERNAL_SERVER_ERROR,
+  FAILED_CREATE_PROJECT,
 } from "../constants/error";
 import axiosInstance from "./axiosInstance";
 
@@ -73,4 +74,24 @@ async function postAuthCheck(token) {
   }
 }
 
-export default { postSignUp, postLogIn, postAuthCheck };
+async function postProject(userId, projectName) {
+  try {
+    const res = await axiosInstance.post(`/api/users/${userId}/projects`, {
+      projectName,
+    });
+
+    return res.status;
+  } catch (err) {
+    const errorStatus = err.response.status;
+
+    if (errorStatus === 400) {
+      Alert.alert(FAILED_CREATE_PROJECT);
+    }
+
+    if (errorStatus === 500) {
+      Alert.alert(INTERNAL_SERVER_ERROR);
+    }
+  }
+}
+
+export default { postSignUp, postLogIn, postAuthCheck, postProject };
