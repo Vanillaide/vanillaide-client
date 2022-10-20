@@ -1,11 +1,12 @@
 import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import CodeArea from "../components/editor/CodeArea";
 import FunctionHeader from "../components/editor/FunctionHeader/FunctionHeader";
 import LanguageBar from "../components/editor/LanguageBar";
 import ToolBar from "../components/editor/ToolBar";
 import { LIGHT_GREY_100 } from "../constants/color";
+import { ProjectContext } from "../contexts/ProjectProvider";
 import AppHeader from "../layout/AppHeader";
 import ContentBox from "../layout/ContentBox";
 import Layout from "../layout/Layout";
@@ -17,6 +18,11 @@ export default function Editor() {
     css: "",
     js: "",
   });
+  const { focusedProject } = useContext(ProjectContext);
+  console.log(
+    "TODO : get code information from focusedProject and setCode",
+    focusedProject,
+  );
 
   const selectedLanguageCode = code[selectedLanguage];
 

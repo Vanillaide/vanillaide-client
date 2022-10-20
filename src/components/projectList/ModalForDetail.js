@@ -3,25 +3,41 @@ import PropTypes from "prop-types";
 import {
   StyleSheet,
   Modal,
-  Text,
   View,
   Dimensions,
   TouchableOpacity,
+  Text,
 } from "react-native";
 
 import { LIGHT_GREY_50, DARK_GREY_100 } from "../../constants/color";
 
 const { width: screenWidth } = Dimensions.get("window");
 
-export default function ModalForDetail({ isVisible, handlePress }) {
+export default function ModalForDetail({
+  isVisible,
+  projectInfo,
+  handlePress,
+  handleDelete,
+}) {
   return (
     <Modal visible={isVisible} animationType="slide" transparent>
       <View style={styles.modalContainer}>
         <TouchableOpacity style={styles.backIcon} onPress={handlePress}>
           <AntDesign name="caretdown" size={24} color={LIGHT_GREY_50} />
         </TouchableOpacity>
-        <Text style={styles.text}>Delete</Text>
-        <Text style={styles.text}>Deploy or Performance</Text>
+        <TouchableOpacity onPress={() => handleDelete(projectInfo.projectId)}>
+          <Text style={styles.text}>Delete</Text>
+        </TouchableOpacity>
+        {projectInfo.deployState && (
+          <TouchableOpacity>
+            <Text style={styles.text}>Performance</Text>
+          </TouchableOpacity>
+        )}
+        {!projectInfo.deployState && (
+          <TouchableOpacity>
+            <Text style={styles.text}>Deploy</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </Modal>
   );
@@ -29,7 +45,9 @@ export default function ModalForDetail({ isVisible, handlePress }) {
 
 ModalForDetail.propTypes = {
   isVisible: PropTypes.bool.isRequired,
+  projectInfo: PropTypes.object.isRequired,
   handlePress: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

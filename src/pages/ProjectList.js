@@ -13,51 +13,61 @@ import ProjectCreateButton from "../components/projectList/ProjectCreateButton";
 import { LIGHT_GREY_100, LIGHT_GREY_150, CONTENT } from "../constants/color";
 import { NO_PROJECT_NAME, MORE_THAN_MAXLENGTH } from "../constants/error";
 import { UserContext } from "../contexts/AuthProvider";
+import { ProjectContext } from "../contexts/ProjectProvider";
 import AppHeader from "../layout/AppHeader";
 import ContentBox from "../layout/ContentBox";
 
 const statusBarHeight = StatusBar.currentHeight;
 
 export default function ProjectList({ navigation }) {
-  const [projectName, setProjectName] = useState("");
+  const [projectList, setProjectList] = useState([]);
+  const [projectNameInput, setProjectNameInput] = useState("");
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
+  const [detailsClickedProject, setDetailsClickedProject] = useState({
+    projectId: "",
+    deployState: null,
+  });
   const [errorMessage, setErrorMessage] = useState("");
+
   const {
     loggedInUser: { _id: userId },
   } = useContext(UserContext);
+  const { setFocusedProject } = useContext(ProjectContext);
 
   useFocusEffect(
     useCallback(() => {
-      console.log(
-        "request get project list to backend, /api/users/:userId/projects",
-      );
-      return () => {
-        console.log("clean up fetch function");
-      };
+      async function fetchProjects() {
+        const { status, projects } = await api.getProjects(userId);
+
+        if (status === 200) {
+          setProjectList(projects);
+        }
+      }
+
+      fetchProjects();
     }, []),
   );
 
-  const handleCardPress = () => {
-    console.log(
-      "Take a deeper look a project project provider file and write setFocusedProject logics",
-    );
+  const handleCardPress = ({ projectId, projectName, code, deployState }) => {
+    setFocusedProject({ projectId, projectName, code, deployState });
+
     navigation.navigate("Editor");
   };
 
   const handleCreatePress = async () => {
-    if (!projectName) {
+    if (!projectNameInput) {
       return setErrorMessage(NO_PROJECT_NAME);
     }
 
-    if (projectName.length > 50) {
+    if (projectNameInput.length > 50) {
       return setErrorMessage(MORE_THAN_MAXLENGTH);
     }
 
-    const status = await api.postProject(userId, projectName);
+    const status = await api.postProject(userId, projectNameInput);
 
     if (status === 201) {
-      setProjectName("");
+      setProjectNameInput("");
       setErrorMessage("");
       setIsCreateModalVisible(false);
 
@@ -66,12 +76,13 @@ export default function ProjectList({ navigation }) {
   };
 
   const handleCancelPress = () => {
-    setProjectName("");
+    setProjectNameInput("");
     setErrorMessage("");
     setIsCreateModalVisible(false);
   };
 
-  const handleDetailPress = () => {
+  const handleDetailPress = (projectId, deployState) => {
+    setDetailsClickedProject({ projectId, deployState });
     setIsDetailModalVisible(true);
   };
 
@@ -99,11 +110,34 @@ export default function ProjectList({ navigation }) {
           <View style={styles.pageNameWrapper}>
             <Text style={styles.pageName}>My Projects</Text>
           </View>
-          <View style={styles.container}>
-            <ProjectCard
-              handleCardPress={handleCardPress}
-              handleDetailPress={handleDetailPress}
-            />
+          <View style={styles.projectListWrapper}>
+            {projectList.map((project) => {
+              const {
+                _id: projectId,
+                name,
+                htmlFile,
+                cssFile,
+                jsFile,
+                deployLink,
+              } = project;
+              const code = {
+                html: htmlFile,
+                css: cssFile,
+                js: jsFile,
+              };
+
+              return (
+                <ProjectCard
+                  key={projectId}
+                  projectId={projectId}
+                  projectName={name}
+                  code={code}
+                  deployState={!!deployLink}
+                  handleCardPress={handleCardPress}
+                  handleDetailPress={handleDetailPress}
+                />
+              );
+            })}
             <ProjectCreateButton
               handlePress={() => setIsCreateModalVisible(true)}
             />
@@ -111,14 +145,15 @@ export default function ProjectList({ navigation }) {
         </ScrollView>
         <ModalForCreate
           isVisible={isCreateModalVisible}
-          projectName={projectName}
-          handleChange={setProjectName}
+          projectName={projectNameInput}
+          handleChange={setProjectNameInput}
           handleCancelPress={handleCancelPress}
           handleCreatePress={handleCreatePress}
           errorMessage={errorMessage}
         />
         <ModalForDetail
           isVisible={isDetailModalVisible}
+          projectInfo={detailsClickedProject}
           handlePress={() => setIsDetailModalVisible(false)}
           handleDelete={() => handleDelete()}
         />
@@ -151,7 +186,7 @@ const styles = StyleSheet.create({
     fontFamily: "FiraCode",
     color: LIGHT_GREY_150,
   },
-  container: {
+  projectListWrapper: {
     flex: 10,
     width: "100%",
     alignItems: "center",
