@@ -10,8 +10,17 @@ export default function CustomButton({
   buttonWidth,
   buttonHeight,
   buttonMargin,
+  buttonBackgroundColor,
+  buttonBorderRadius,
 }) {
-  const styleValue = { fontSize, buttonWidth, buttonHeight, buttonMargin };
+  const styleValue = {
+    fontSize,
+    buttonWidth,
+    buttonHeight,
+    buttonMargin,
+    buttonBackgroundColor,
+    buttonBorderRadius,
+  };
 
   return (
     <TouchableOpacity style={styles(styleValue).button} onPress={handlePress}>
@@ -27,22 +36,33 @@ CustomButton.propTypes = {
   buttonWidth: PropTypes.number,
   buttonHeight: PropTypes.number,
   buttonMargin: PropTypes.number,
+  buttonBackgroundColor: PropTypes.string,
+  buttonBorderRadius: PropTypes.number,
 };
 
 CustomButton.defaultProps = {
   buttonWidth: 150,
   buttonHeight: 45,
-  buttonMargin: 10,
+  buttonMargin: 0,
+  buttonBackgroundColor: BUTTON_COLOR,
+  buttonBorderRadius: 30,
 };
 
-const styles = ({ fontSize, buttonWidth, buttonHeight, buttonMargin }) =>
+const styles = ({
+  fontSize,
+  buttonWidth,
+  buttonHeight,
+  buttonMargin,
+  buttonBackgroundColor,
+  buttonBorderRadius,
+}) =>
   StyleSheet.create({
     button: {
-      backgroundColor: BUTTON_COLOR,
+      backgroundColor: buttonBackgroundColor,
       width: buttonWidth,
       height: buttonHeight,
       background: "D9D9D9",
-      borderRadius: 30,
+      borderRadius: buttonBorderRadius,
       justifyContent: "center",
       alignItems: "center",
       margin: buttonMargin,
