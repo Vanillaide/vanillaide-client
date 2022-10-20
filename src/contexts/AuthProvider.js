@@ -23,10 +23,16 @@ function AuthProvider({ children }) {
         }
 
         if (!isChecked) {
-          const { user } = await api.postAuthCheck(token);
+          const data = await api.postAuthCheck(token);
 
-          setLoggedInUser(user);
-          setIsChecked(true);
+          if (data.err) {
+            throw data.err;
+          }
+
+          if (data.user) {
+            setLoggedInUser(data.user);
+            setIsChecked(true);
+          }
         }
       } catch (err) {
         console.log(err);

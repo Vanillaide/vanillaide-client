@@ -1,8 +1,35 @@
 import * as SecureStore from "expo-secure-store";
 import { Alert } from "react-native";
 
-import { LOGIN_FAILED, INTERNAL_SERVER_ERROR } from "../constants/error";
+import {
+  FAILED_SIGNUP,
+  FAILED_LOGIN,
+  INTERNAL_SERVER_ERROR,
+} from "../constants/error";
 import axiosInstance from "./axiosInstance";
+
+async function postSignUp(username, email, password, passwordConfirm) {
+  try {
+    const res = await axiosInstance.post("/api/auth/signup", {
+      username,
+      email,
+      password,
+      passwordConfirm,
+    });
+
+    return res.status;
+  } catch (err) {
+    const errorStatus = err.response.status;
+
+    if (errorStatus === 400) {
+      Alert.alert(FAILED_SIGNUP);
+    }
+
+    if (errorStatus === 500) {
+      Alert.alert(INTERNAL_SERVER_ERROR);
+    }
+  }
+}
 
 async function postLogIn(email, password) {
   try {
@@ -19,10 +46,13 @@ async function postLogIn(email, password) {
 
     return res.data;
   } catch (err) {
-    if (err.response.status === 400) {
-      Alert.alert(LOGIN_FAILED);
+    const errorStatus = err.response.status;
+
+    if (errorStatus === 400) {
+      Alert.alert(FAILED_LOGIN);
     }
-    if (err.response.status === 500) {
+
+    if (errorStatus === 500) {
       Alert.alert(INTERNAL_SERVER_ERROR);
     }
   }
@@ -39,9 +69,8 @@ async function postAuthCheck(token) {
 
     return data;
   } catch (err) {
-    console.log(err);
-    return err;
+    return { err };
   }
 }
 
-export default { postLogIn, postAuthCheck };
+export default { postSignUp, postLogIn, postAuthCheck };
