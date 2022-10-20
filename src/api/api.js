@@ -73,12 +73,9 @@ async function postLogIn(email, password) {
 
 async function getProjects(userId) {
   try {
-    const {
-      status,
-      data: { projects },
-    } = await axiosInstance.get(`api/users/${userId}/projects`);
+    const res = await axiosInstance.get(`api/users/${userId}/projects`);
 
-    return { status, projects };
+    return { status: res.status, projects: res.data.projects };
   } catch (err) {
     const errorStatus = err.response.status;
 
@@ -98,7 +95,7 @@ async function postProject(userId, projectName) {
       projectName,
     });
 
-    return res.status;
+    return { status: res.status, project: res.data.project };
   } catch (err) {
     const errorStatus = err.response.status;
 
@@ -114,9 +111,9 @@ async function postProject(userId, projectName) {
 
 async function deleteProject(projectId) {
   try {
-    const res = await axiosInstance.delete(`/api/projects/${projectId}`);
+    const { status } = await axiosInstance.delete(`/api/projects/${projectId}`);
 
-    return res.status;
+    return status;
   } catch (err) {
     const errorStatus = err.response.status;
 

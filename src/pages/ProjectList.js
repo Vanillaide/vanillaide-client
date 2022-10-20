@@ -73,12 +73,20 @@ export default function ProjectList({ navigation }) {
       return setErrorMessage(MORE_THAN_MAXLENGTH);
     }
 
-    const status = await api.postProject(userId, projectNameInput);
+    const { status, project } = await api.postProject(userId, projectNameInput);
 
     if (status === 201) {
+      const { _id, name, htmlFile, cssFile, jsFile, deployLink } = project;
+
       setProjectNameInput("");
       setErrorMessage("");
       setIsCreateModalVisible(false);
+      setFocusedProject({
+        projectId: _id,
+        projectName: name,
+        code: { html: htmlFile, css: cssFile, js: jsFile },
+        deployState: !!deployLink,
+      });
 
       navigation.navigate("Editor");
     }
@@ -101,7 +109,7 @@ export default function ProjectList({ navigation }) {
     if (status === 200) {
       setIsDetailModalVisible(false);
 
-      navigation.push("ProjectList");
+      navigation.replace("ProjectList");
     }
   };
 
@@ -186,8 +194,7 @@ export default function ProjectList({ navigation }) {
 ProjectList.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
-    goBack: PropTypes.func.isRequired,
-    push: PropTypes.func.isRequired,
+    replace: PropTypes.func.isRequired,
   }).isRequired,
 };
 
