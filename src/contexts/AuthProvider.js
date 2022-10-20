@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import React, { useState, useEffect, createContext } from "react";
 
 import api from "../api/api";
+import axiosInstance from "../api/axiosInstance";
 
 export const UserContext = createContext(null);
 
@@ -13,6 +14,7 @@ function AuthProvider({ children }) {
   useEffect(() => {
     async function fetchUser() {
       try {
+        // await SecureStore.deleteItemAsync("token");
         const token = await SecureStore.getItemAsync("token");
 
         if (!token) {
@@ -22,8 +24,10 @@ function AuthProvider({ children }) {
           return;
         }
 
+        axiosInstance.defaults.headers.common["token"] = token;
+
         if (!isChecked) {
-          const data = await api.postAuthCheck(token);
+          const data = await api.postAuthCheck();
 
           if (data.err) {
             throw data.err;

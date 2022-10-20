@@ -58,14 +58,9 @@ async function postLogIn(email, password) {
   }
 }
 
-async function postAuthCheck(token) {
+async function postAuthCheck() {
   try {
-    const config = {
-      headers: {
-        token,
-      },
-    };
-    const { data } = await axiosInstance.post("/api/auth", {}, config);
+    const { data } = await axiosInstance.post("/api/auth");
 
     return data;
   } catch (err) {
