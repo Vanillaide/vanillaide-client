@@ -11,6 +11,16 @@ import {
 } from "../constants/error";
 import axiosInstance from "./axiosInstance";
 
+async function postAuthCheck() {
+  try {
+    const { data } = await axiosInstance.post("/api/auth");
+
+    return data;
+  } catch (err) {
+    return { err };
+  }
+}
+
 async function postSignUp(username, email, password, passwordConfirm) {
   try {
     const res = await axiosInstance.post("/api/auth/signup", {
@@ -58,21 +68,6 @@ async function postLogIn(email, password) {
     if (errorStatus === 500) {
       Alert.alert(INTERNAL_SERVER_ERROR);
     }
-  }
-}
-
-async function postAuthCheck(token) {
-  try {
-    const config = {
-      headers: {
-        token,
-      },
-    };
-    const { data } = await axiosInstance.post("/api/auth", {}, config);
-
-    return data;
-  } catch (err) {
-    return { err };
   }
 }
 
