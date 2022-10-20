@@ -14,7 +14,6 @@ function AuthProvider({ children }) {
   useEffect(() => {
     async function fetchUser() {
       try {
-        // await SecureStore.deleteItemAsync("token");
         const token = await SecureStore.getItemAsync("token");
 
         if (!token) {
@@ -24,7 +23,9 @@ function AuthProvider({ children }) {
           return;
         }
 
-        axiosInstance.defaults.headers.common["token"] = token;
+        axiosInstance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${token}`;
 
         if (!isChecked) {
           const data = await api.postAuthCheck();
