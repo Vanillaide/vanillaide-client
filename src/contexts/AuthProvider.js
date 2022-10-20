@@ -1,15 +1,57 @@
+import * as SecureStore from "expo-secure-store";
 import PropTypes from "prop-types";
-import { useState, createContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
+
+import api from "../api/api";
 
 export const UserContext = createContext(null);
 
 function AuthProvider({ children }) {
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const token = await SecureStore.getItemAsync("token");
+
+        if (!token) {
+          setIsChecked(true);
+          setLoggedInUser(null);
+
+          return;
+        }
+
+        if (!isChecked) {
+          const data = await api.postAuthCheck(token);
+
+          if (data.err) {
+            throw data.err;
+          }
+
+          if (data.user) {
+            setLoggedInUser(data.user);
+            setIsChecked(true);
+          }
+        }
+      } catch (err) {
+        console.log(err);
+        setLoggedInUser(null);
+        setIsChecked(true);
+      }
+    }
+
+    fetchUser();
+  }, [loggedInUser]);
 
   return (
-    <UserContext.Provider value={{ user: loggedInUser, setLoggedInUser }}>
-      {children}
-    </UserContext.Provider>
+    <>
+      {isChecked && (
+        <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
+          {children}
+        </UserContext.Provider>
+      )}
+    </>
   );
 }
 
