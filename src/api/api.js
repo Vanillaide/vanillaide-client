@@ -5,6 +5,9 @@ import {
   FAILED_SIGNUP,
   FAILED_LOGIN,
   INTERNAL_SERVER_ERROR,
+  FAILED_GET_PROJECTS,
+  FAILED_CREATE_PROJECT,
+  FAILED_DELETE_PROJECT,
 } from "../constants/error";
 import axiosInstance from "./axiosInstance";
 
@@ -68,4 +71,67 @@ async function postLogIn(email, password) {
   }
 }
 
-export default { postAuthCheck, postSignUp, postLogIn };
+async function getProjects(userId) {
+  try {
+    const res = await axiosInstance.get(`api/users/${userId}/projects`);
+
+    return { status: res.status, projects: res.data.projects };
+  } catch (err) {
+    const errorStatus = err.response.status;
+
+    if (errorStatus === 400) {
+      Alert.alert(FAILED_GET_PROJECTS);
+    }
+
+    if (errorStatus === 500) {
+      Alert.alert(INTERNAL_SERVER_ERROR);
+    }
+  }
+}
+
+async function postProject(userId, projectName) {
+  try {
+    const res = await axiosInstance.post(`/api/users/${userId}/projects`, {
+      projectName,
+    });
+
+    return { status: res.status, project: res.data.project };
+  } catch (err) {
+    const errorStatus = err.response.status;
+
+    if (errorStatus === 400) {
+      Alert.alert(FAILED_CREATE_PROJECT);
+    }
+
+    if (errorStatus === 500) {
+      Alert.alert(INTERNAL_SERVER_ERROR);
+    }
+  }
+}
+
+async function deleteProject(projectId) {
+  try {
+    const { status } = await axiosInstance.delete(`/api/projects/${projectId}`);
+
+    return status;
+  } catch (err) {
+    const errorStatus = err.response.status;
+
+    if (errorStatus === 400) {
+      Alert.alert(FAILED_DELETE_PROJECT);
+    }
+
+    if (errorStatus === 500) {
+      Alert.alert(INTERNAL_SERVER_ERROR);
+    }
+  }
+}
+
+export default {
+  postSignUp,
+  postLogIn,
+  postAuthCheck,
+  getProjects,
+  postProject,
+  deleteProject,
+};

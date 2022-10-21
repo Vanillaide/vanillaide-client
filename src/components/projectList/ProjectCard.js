@@ -9,20 +9,38 @@ import {
   WHITE,
 } from "../../constants/color";
 
-export default function ProjectCard({ handleCardPress, handleDetailPress }) {
+export default function ProjectCard({
+  projectId,
+  projectName,
+  code,
+  deployState,
+  handleCardPress,
+  handleDetailPress,
+}) {
   return (
-    <TouchableOpacity style={styles.projectCard} onPress={handleCardPress}>
+    <TouchableOpacity
+      style={styles.projectCardContainer}
+      onPress={() =>
+        handleCardPress({ projectId, projectName, code, deployState })
+      }
+    >
       <View style={styles.projectNameWrapper}>
         <FontAwesome name="folder" size={22} color={BLACK} />
-        <Text style={styles.projectName}>My calculator</Text>
+        <Text style={styles.projectName}>{projectName}</Text>
       </View>
       <View style={styles.projectDetailsWrapper}>
-        <View style={styles.deploymentStateWrapper}>
-          <Text style={styles.deployState} numberOfLines={1}>
-            deployed
-          </Text>
-        </View>
-        <TouchableOpacity onPress={() => handleDetailPress()}>
+        {deployState && (
+          <View style={styles.deployStateWrapper}>
+            <Text style={styles.deployState} numberOfLines={1}>
+              deployed
+            </Text>
+          </View>
+        )}
+        <TouchableOpacity
+          onPress={() =>
+            handleDetailPress(projectId, projectName, code, deployState)
+          }
+        >
           <Entypo name="dots-three-vertical" size={22} color={BLACK} />
         </TouchableOpacity>
       </View>
@@ -31,12 +49,16 @@ export default function ProjectCard({ handleCardPress, handleDetailPress }) {
 }
 
 ProjectCard.propTypes = {
+  projectId: PropTypes.string.isRequired,
+  projectName: PropTypes.string.isRequired,
+  code: PropTypes.object.isRequired,
+  deployState: PropTypes.bool.isRequired,
   handleCardPress: PropTypes.func.isRequired,
   handleDetailPress: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
-  projectCard: {
+  projectCardContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -59,7 +81,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  deploymentStateWrapper: {
+  deployStateWrapper: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
