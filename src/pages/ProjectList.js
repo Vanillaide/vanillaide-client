@@ -13,6 +13,7 @@ import {
 
 import api from "../api/api";
 import Logo from "../components/Logo";
+import NavBar from "../components/navBar/NavBar";
 import ModalForCreate from "../components/projectList/ModalForCreate";
 import ModalForDetail from "../components/projectList/ModalForDetail";
 import ProjectCard from "../components/projectList/ProjectCard";
@@ -31,6 +32,7 @@ export default function ProjectList({ navigation }) {
   const [projectNameInput, setProjectNameInput] = useState("");
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
+  const [isNavBarVisible, setIsNavBarVisible] = useState(false);
   const [detailsClickedProject, setDetailsClickedProject] = useState({
     projectId: "",
     projectName: "",
@@ -131,6 +133,10 @@ export default function ProjectList({ navigation }) {
     navigation.navigate("Deploy");
   };
 
+  const handleNavBarClose = () => {
+    setIsNavBarVisible(false);
+  };
+
   return (
     <ScrollView
       keyboardShouldPersistTaps="always"
@@ -138,8 +144,20 @@ export default function ProjectList({ navigation }) {
       stickyHeaderIndices={[1]}
     >
       <View style={styles.statusBar} />
+      {isNavBarVisible && (
+        <NavBar
+          isVisible={isNavBarVisible}
+          handlePress={handleNavBarClose}
+          navigation={navigation}
+        />
+      )}
       <AppHeader>
-        <Feather name="menu" size={30} color={LIGHT_GREY_100} />
+        <Feather
+          name="menu"
+          size={30}
+          color={LIGHT_GREY_100}
+          onPress={() => setIsNavBarVisible(true)}
+        />
         <Logo fontSize={30} />
         <View />
       </AppHeader>

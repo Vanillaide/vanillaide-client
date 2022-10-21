@@ -1,4 +1,3 @@
-import { Feather } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 import React, { useState, useContext } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
@@ -54,9 +53,7 @@ export default function SignIn({ navigation }) {
   return (
     <Layout>
       <AppHeader>
-        <Feather name="menu" size={30} color="#E0DCDC" />
         <Logo fontSize={30} />
-        <View />
       </AppHeader>
       <ContentBox>
         <View style={styles.title}>
