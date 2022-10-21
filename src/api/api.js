@@ -55,6 +55,8 @@ async function postLogIn(email, password) {
     const res = await axiosInstance.post("/api/auth/login", {}, config);
     const token = res.headers.token;
 
+    axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
     await SecureStore.setItemAsync("token", token);
 
     return res.data;
