@@ -39,7 +39,7 @@ export default function ProjectList({ navigation }) {
       css: "",
       js: "",
     },
-    deployState: null,
+    deployState: false,
   });
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
