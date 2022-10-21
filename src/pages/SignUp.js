@@ -1,4 +1,3 @@
-import { Feather } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import {
@@ -72,9 +71,7 @@ export default function SignUp({ navigation }) {
     <Layout>
       <ScrollView contentContainerStyle={{ paddingTop: 0, paddingBottom: 0 }}>
         <AppHeader>
-          <Feather name="menu" size={30} color="#E0DCDC" />
           <Logo fontSize={30} />
-          <View />
         </AppHeader>
       </ScrollView>
       <ContentBox>
