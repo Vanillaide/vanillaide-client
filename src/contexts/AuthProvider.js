@@ -47,7 +47,7 @@ function AuthProvider({ children }) {
     }
 
     fetchUser();
-  }, [loggedInUser]);
+  }, []);
 
   return (
     <>
