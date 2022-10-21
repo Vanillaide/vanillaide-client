@@ -133,6 +133,7 @@ export default function ProjectList({ navigation }) {
 
   return (
     <ScrollView
+      keyboardShouldPersistTaps="always"
       contentContainerStyle={{ flexGrow: 1 }}
       stickyHeaderIndices={[1]}
     >
