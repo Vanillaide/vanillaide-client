@@ -22,7 +22,7 @@ export default function Editor() {
   // const selectedLanguageCode = code[selectedLanguage];
 
   return (
-    <WebView source={{ uri: "http://192.168.0.17:3000" }} />
+    <WebView source={{ uri: process.env.REACT_APP_REACT_URI }} />
     // <Layout>
     //   <AppHeader>
     //     <Feather name="menu" size={30} color={LIGHT_GREY_100} />
