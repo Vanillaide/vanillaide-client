@@ -26,7 +26,9 @@ export default function NavBar({ isVisible, handlePress, navigation }) {
   const { focusedProject } = useContext(ProjectContext);
 
   const handleSignOutPress = () => {
-    console.log("request to sign out to backend");
+    handlePress();
+    // TODO: request to sign out to backend
+    // Reference: handlePress function means that the modal will be closed
   };
 
   const handleMenuPress = () => {
@@ -108,8 +110,8 @@ const styles = StyleSheet.create({
     flex: 2,
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 20,
     alignItems: "center",
+    padding: 20,
     backgroundColor: DARK_GREY_100,
   },
 });

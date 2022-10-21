@@ -14,7 +14,7 @@ import Layout from "../layout/Layout";
 
 export default function Editor({ navigation }) {
   const [selectedLanguage, setSelectedLanguage] = useState("html");
-  const [isVisible, setIsVisible] = useState(false);
+  const [isNavBarVisible, setIsNavBarVisible] = useState(false);
   const [code, setCode] = useState({
     html: "",
     css: "",
@@ -22,14 +22,14 @@ export default function Editor({ navigation }) {
   });
   const selectedLanguageCode = code[selectedLanguage];
   const handleClosePress = () => {
-    setIsVisible(false);
+    setIsNavBarVisible(false);
   };
 
   return (
     <Layout>
-      {isVisible && (
+      {isNavBarVisible && (
         <NavBar
-          isVisible={isVisible}
+          isVisible={isNavBarVisible}
           handlePress={handleClosePress}
           navigation={navigation}
         />
@@ -39,7 +39,7 @@ export default function Editor({ navigation }) {
           name="menu"
           size={30}
           color={LIGHT_GREY_100}
-          onPress={() => setIsVisible(true)}
+          onPress={() => setIsNavBarVisible(true)}
         />
         <FunctionHeader code={code} />
       </AppHeader>

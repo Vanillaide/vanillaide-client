@@ -14,7 +14,7 @@ import Layout from "../layout/Layout";
 
 export default function Deploy({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isNavBarVisible, setIsNavBarVisible] = useState(false);
   const { focusedProject } = useContext(ProjectContext);
 
   const handlePress = () => {
@@ -22,14 +22,14 @@ export default function Deploy({ navigation }) {
   };
 
   const handleClosePress = () => {
-    setIsVisible(false);
+    setIsNavBarVisible(false);
   };
 
   return (
     <Layout>
-      {isVisible && (
+      {isNavBarVisible && (
         <NavBar
-          isVisible={isVisible}
+          isVisible={isNavBarVisible}
           handlePress={handleClosePress}
           navigation={navigation}
         />
@@ -39,7 +39,7 @@ export default function Deploy({ navigation }) {
           name="menu"
           size={30}
           color={LIGHT_GREY_100}
-          onPress={() => setIsVisible(true)}
+          onPress={() => setIsNavBarVisible(true)}
         />
         <Logo fontSize={30} />
         <View />
