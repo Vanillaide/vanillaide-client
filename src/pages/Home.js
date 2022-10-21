@@ -19,11 +19,13 @@ export default function Home({ navigation }) {
         text="Sign In"
         fontSize={20}
         handlePress={handleSignInPress}
+        buttonMargin={15}
       />
       <CustomButton
         text="Sign Up"
         fontSize={20}
         handlePress={handleSignOutPress}
+        buttonMargin={15}
       />
     </Layout>
   );
