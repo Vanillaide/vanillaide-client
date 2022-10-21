@@ -1,27 +1,46 @@
 import { Feather } from "@expo/vector-icons";
+import PropTypes from "prop-types";
 import { useState, useContext } from "react";
 import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 
 import CustomButton from "../components/CustomButton";
 import Logo from "../components/Logo";
+import NavBar from "../components/navBar/NavBar";
 import { LIGHT_GREY_100 } from "../constants/color";
 import { ProjectContext } from "../contexts/ProjectProvider";
 import AppHeader from "../layout/AppHeader";
 import ContentBox from "../layout/ContentBox";
 import Layout from "../layout/Layout";
 
-export default function Deploy() {
+export default function Deploy({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const { focusedProject } = useContext(ProjectContext);
 
   const handlePress = () => {
     setIsLoading(true);
   };
 
+  const handleClosePress = () => {
+    setIsVisible(false);
+  };
+
   return (
     <Layout>
+      {isVisible && (
+        <NavBar
+          isVisible={isVisible}
+          handlePress={handleClosePress}
+          navigation={navigation}
+        />
+      )}
       <AppHeader>
-        <Feather name="menu" size={30} color={LIGHT_GREY_100} />
+        <Feather
+          name="menu"
+          size={30}
+          color={LIGHT_GREY_100}
+          onPress={() => setIsVisible(true)}
+        />
         <Logo fontSize={30} />
         <View />
       </AppHeader>
@@ -49,6 +68,12 @@ export default function Deploy() {
     </Layout>
   );
 }
+
+Deploy.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 const styles = StyleSheet.create({
   projectName: {
