@@ -1,4 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
+import * as SecureStore from "expo-secure-store";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import {
@@ -22,13 +23,14 @@ const navBarWidth = (screenWidth * 4) / 5;
 export default function NavBar({ isVisible, handlePress, navigation }) {
   const {
     loggedInUser: { username, email },
+    setLoggedInUser,
   } = useContext(UserContext);
   const { focusedProject } = useContext(ProjectContext);
 
-  const handleSignOutPress = () => {
+  const handleSignOutPress = async () => {
     handlePress();
-    // TODO: request to sign out to backend
-    // Reference: handlePress function means that the modal will be closed
+    await SecureStore.deleteItemAsync("token");
+    setLoggedInUser(null);
   };
 
   const handleMenuPress = () => {
