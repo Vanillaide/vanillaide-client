@@ -8,6 +8,7 @@ import {
   FAILED_GET_PROJECTS,
   FAILED_CREATE_PROJECT,
   FAILED_DELETE_PROJECT,
+  FAILED_SAVE_PROJECT,
 } from "../constants/error";
 import axiosInstance from "./axiosInstance";
 
@@ -129,6 +130,26 @@ async function deleteProject(projectId) {
   }
 }
 
+async function patchProject(projectId, code) {
+  try {
+    const { status } = await axiosInstance.patch(`/api/projects/${projectId}`, {
+      code,
+    });
+
+    return status;
+  } catch (err) {
+    const errorStatus = err.response.status;
+
+    if (errorStatus === 400) {
+      Alert.alert(FAILED_SAVE_PROJECT);
+    }
+
+    if (errorStatus === 500) {
+      Alert.alert(INTERNAL_SERVER_ERROR);
+    }
+  }
+}
+
 export default {
   postSignUp,
   postLogIn,
@@ -136,4 +157,5 @@ export default {
   getProjects,
   postProject,
   deleteProject,
+  patchProject,
 };
