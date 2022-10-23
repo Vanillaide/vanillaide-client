@@ -4,6 +4,7 @@ import { StyleSheet, KeyboardAvoidingView, Alert } from "react-native";
 import { WebView } from "react-native-webview";
 
 import api from "../api/api";
+import { SUCCEEDED_SAVE_PROJECT } from "../constants/ui";
 import { ProjectContext } from "../contexts/ProjectProvider";
 import Layout from "../layout/Layout";
 
@@ -20,7 +21,7 @@ export default function Editor({ navigation }) {
       const status = await api.patchProject(projectId, data.code);
 
       if (status === 200) {
-        Alert.alert("Your changes have been successfully saved");
+        Alert.alert(SUCCEEDED_SAVE_PROJECT);
       }
     }
   };
