@@ -1,10 +1,12 @@
 import { Feather } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 import { useState, useContext } from "react";
-import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator } from "react-native";
 
-import CustomButton from "../components/CustomButton";
+import api from "../api/api";
 import Logo from "../components/Logo";
+import DeployStart from "../components/deploy/DeployStart";
+import DeploySuccess from "../components/deploy/DeploySuccess";
 import NavBar from "../components/navBar/NavBar";
 import { LIGHT_GREY_100 } from "../constants/color";
 import { ProjectContext } from "../contexts/ProjectProvider";
@@ -14,11 +16,27 @@ import Layout from "../layout/Layout";
 
 export default function Deploy({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
   const [isNavBarVisible, setIsNavBarVisible] = useState(false);
-  const { focusedProject } = useContext(ProjectContext);
+  const [deployLink, setDeployLink] = useState("");
+  const {
+    focusedProject: { projectId, projectName },
+  } = useContext(ProjectContext);
 
-  const handlePress = () => {
+  const handleDeployPress = async () => {
     setIsLoading(true);
+
+    const { status, deployLink } = await api.postDeployment(projectId);
+
+    if (status === 200) {
+      setDeployLink(deployLink);
+      setIsLoading(false);
+      setIsFinished(true);
+    }
+  };
+
+  const handleGoToPress = () => {
+    // TODO : request to backend /api/projects/:projectId/deployment
   };
 
   const handleClosePress = () => {
@@ -45,23 +63,22 @@ export default function Deploy({ navigation }) {
         <View />
       </AppHeader>
       <ContentBox>
-        {!isLoading ? (
-          <>
-            <Text style={styles.projectName}>{focusedProject.projectName}</Text>
-            <CustomButton
-              text="deploy"
-              fontSize={20}
-              handlePress={handlePress}
-              buttonWidth={180}
-              buttonHeight={50}
-              borderRadius={30}
-            />
-          </>
+        {!isFinished && !isLoading ? (
+          <DeployStart
+            projectName={projectName}
+            handlePress={handleDeployPress}
+          />
         ) : (
           <ActivityIndicator
             animating={isLoading}
             size="large"
             color={LIGHT_GREY_100}
+          />
+        )}
+        {isFinished && (
+          <DeploySuccess
+            deployLink={deployLink}
+            handleGoToPress={handleGoToPress}
           />
         )}
       </ContentBox>
@@ -74,12 +91,3 @@ Deploy.propTypes = {
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
-
-const styles = StyleSheet.create({
-  projectName: {
-    marginBottom: 10,
-    fontSize: 70,
-    fontFamily: "FiraCode",
-    color: LIGHT_GREY_100,
-  },
-});

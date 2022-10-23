@@ -11,3 +11,4 @@ export const FAILED_GET_PROJECTS = "Cannot load project list";
 export const FAILED_CREATE_PROJECT = "Cannot create a project";
 export const FAILED_DELETE_PROJECT = "Cannot delete a project";
 export const FAILED_SAVE_PROJECT = "Cannot save a project code";
+export const FAILED_DEPLOYMENT = "Cannot deploy a project";
