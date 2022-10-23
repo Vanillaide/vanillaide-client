@@ -19,14 +19,14 @@ export default function Deploy({ navigation }) {
   const [isFinished, setIsFinished] = useState(false);
   const [isNavBarVisible, setIsNavBarVisible] = useState(false);
   const [deployLink, setDeployLink] = useState("");
-  const { focusedProject } = useContext(ProjectContext);
+  const {
+    focusedProject: { projectId, projectName },
+  } = useContext(ProjectContext);
 
   const handleDeployPress = async () => {
     setIsLoading(true);
 
-    const { status, deployLink } = await api.postDeployment(
-      focusedProject.projectId,
-    );
+    const { status, deployLink } = await api.postDeployment(projectId);
 
     if (status === 200) {
       setDeployLink(deployLink);
@@ -65,7 +65,7 @@ export default function Deploy({ navigation }) {
       <ContentBox>
         {!isFinished && !isLoading ? (
           <DeployStart
-            projectName={focusedProject.projectName}
+            projectName={projectName}
             handlePress={handleDeployPress}
           />
         ) : (

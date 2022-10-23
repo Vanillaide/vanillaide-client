@@ -12,31 +12,26 @@ export default function DeploySuccess({ deployLink, handleGoToPress }) {
   };
 
   return (
-    <>
-      <View style={styles.container}>
-        <View style={styles.iconWrapper}>
-          <AntDesign name="checksquare" size={120} color={GREEN_50} />
-        </View>
-        <View style={styles.infoWrapper}>
-          <Text style={styles.successText}>Deploy</Text>
-          <Text style={styles.successText}>Successed!</Text>
-          <CustomButton
-            text="Go To"
-            fontSize={25}
-            handlePress={handleGoToPress}
-            buttonWidth={140}
-            buttonHeight={50}
-            buttonMargin={40}
-          />
-          <TouchableOpacity
-            style={styles.linkWrapper}
-            onPress={handleLinkPress}
-          >
-            <FontAwesome5 name="link" size={24} color={BLACK} />
-          </TouchableOpacity>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.iconWrapper}>
+        <AntDesign name="checksquare" size={120} color={GREEN_50} />
       </View>
-    </>
+      <View style={styles.infoWrapper}>
+        <Text style={styles.successText}>Deploy</Text>
+        <Text style={styles.successText}>Successed!</Text>
+        <CustomButton
+          text="Go To"
+          fontSize={25}
+          handlePress={handleGoToPress}
+          buttonWidth={140}
+          buttonHeight={50}
+          buttonMargin={40}
+        />
+        <TouchableOpacity style={styles.linkWrapper} onPress={handleLinkPress}>
+          <FontAwesome5 name="link" size={24} color={BLACK} />
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
@@ -67,9 +62,9 @@ const styles = StyleSheet.create({
     color: LIGHT_GREY_50,
   },
   linkWrapper: {
+    margin: 20,
     justifyContent: "center",
     alignItems: "center",
-    margin: 20,
     width: 50,
     height: 50,
     backgroundColor: LIGHT_GREY_50,
