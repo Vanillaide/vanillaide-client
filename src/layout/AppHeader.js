@@ -16,6 +16,7 @@ AppHeader.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
+    zIndex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
