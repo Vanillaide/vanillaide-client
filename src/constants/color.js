@@ -12,3 +12,4 @@ export const WHITE = "#FFFFFF";
 export const RED_50 = "#B22222";
 export const DARK_BLUE_50 = "#1D2229";
 export const DARK_BLUE_100 = "#262C35";
+export const GREEN_50 = "#5CC14C";

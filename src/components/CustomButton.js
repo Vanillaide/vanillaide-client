@@ -61,7 +61,6 @@ const styles = ({
       backgroundColor: buttonBackgroundColor,
       width: buttonWidth,
       height: buttonHeight,
-      background: "D9D9D9",
       borderRadius: buttonBorderRadius,
       justifyContent: "center",
       alignItems: "center",

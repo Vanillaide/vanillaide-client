@@ -9,6 +9,7 @@ import {
   FAILED_CREATE_PROJECT,
   FAILED_DELETE_PROJECT,
   FAILED_SAVE_PROJECT,
+  FAILED_DEPLOYMENT,
 } from "../constants/error";
 import axiosInstance from "./axiosInstance";
 
@@ -150,6 +151,26 @@ async function patchProject(projectId, code) {
   }
 }
 
+async function postDeployment(projectId) {
+  try {
+    const res = await axiosInstance.post(
+      `/api/projects/${projectId}/deployment`,
+    );
+
+    return { status: res.status, deployLink: res.data.deployLink };
+  } catch (err) {
+    const errorStatus = err.response.status;
+
+    if (errorStatus === 400) {
+      Alert.alert(FAILED_DEPLOYMENT);
+    }
+
+    if (errorStatus === 500) {
+      Alert.alert(INTERNAL_SERVER_ERROR);
+    }
+  }
+}
+
 export default {
   postSignUp,
   postLogIn,
@@ -158,4 +179,5 @@ export default {
   postProject,
   deleteProject,
   patchProject,
+  postDeployment,
 };
