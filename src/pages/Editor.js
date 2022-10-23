@@ -1,63 +1,46 @@
-import { Feather } from "@expo/vector-icons";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useContext, useRef } from "react";
+import { StyleSheet, KeyboardAvoidingView, Alert } from "react-native";
+import { WebView } from "react-native-webview";
 
-import CodeArea from "../components/editor/CodeArea";
-import FunctionHeader from "../components/editor/FunctionHeader/FunctionHeader";
-import LanguageBar from "../components/editor/LanguageBar";
-import ToolBar from "../components/editor/ToolBar";
-import NavBar from "../components/navBar/NavBar";
-import { LIGHT_GREY_100 } from "../constants/color";
-import AppHeader from "../layout/AppHeader";
-import ContentBox from "../layout/ContentBox";
+import api from "../api/api";
+import { ProjectContext } from "../contexts/ProjectProvider";
 import Layout from "../layout/Layout";
 
 export default function Editor({ navigation }) {
-  const [selectedLanguage, setSelectedLanguage] = useState("html");
-  const [isNavBarVisible, setIsNavBarVisible] = useState(false);
-  const [code, setCode] = useState({
-    html: "",
-    css: "",
-    js: "",
-  });
-  const selectedLanguageCode = code[selectedLanguage];
-  const handleClosePress = () => {
-    setIsNavBarVisible(false);
+  const webViewRef = useRef();
+  const {
+    focusedProject: { projectId, code },
+  } = useContext(ProjectContext);
+
+  const handleOnMessage = async (ev) => {
+    const data = JSON.parse(ev.nativeEvent.data);
+
+    if (data.method === "save") {
+      const status = await api.patchProject(projectId, data.code);
+
+      if (status === 200) {
+        Alert.alert("Your changes have been successfully saved");
+      }
+    }
+  };
+
+  const handleOnLoad = () => {
+    if (webViewRef.current) {
+      webViewRef.current.postMessage(JSON.stringify(code));
+    }
   };
 
   return (
     <Layout>
-      {isNavBarVisible && (
-        <NavBar
-          isVisible={isNavBarVisible}
-          handlePress={handleClosePress}
-          navigation={navigation}
+      <KeyboardAvoidingView style={styles.container}>
+        <WebView
+          ref={webViewRef}
+          onMessage={handleOnMessage}
+          onLoad={handleOnLoad}
+          source={{ uri: process.env.REACT_APP_WEBVIEW_URL }}
         />
-      )}
-      <AppHeader>
-        <Feather
-          name="menu"
-          size={30}
-          color={LIGHT_GREY_100}
-          onPress={() => setIsNavBarVisible(true)}
-        />
-        <FunctionHeader code={code} />
-      </AppHeader>
-      <ContentBox>
-        <LanguageBar
-          selectedLanguage={selectedLanguage}
-          handlePress={(language) => setSelectedLanguage(language)}
-        />
-        <CodeArea code={selectedLanguageCode} />
-        <ToolBar
-          handleChange={(str) =>
-            setCode((prev) => ({
-              ...prev,
-              [selectedLanguage]: prev[selectedLanguage] + str,
-            }))
-          }
-        />
-      </ContentBox>
+      </KeyboardAvoidingView>
     </Layout>
   );
 }
@@ -67,3 +50,11 @@ Editor.propTypes = {
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
+});
