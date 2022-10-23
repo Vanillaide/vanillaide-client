@@ -1,6 +1,12 @@
 import PropTypes from "prop-types";
 import React, { useState, useContext } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  KeyboardAvoidingView,
+} from "react-native";
 
 import api from "../api/api";
 import CustomButton from "../components/CustomButton";
@@ -59,7 +65,7 @@ export default function SignIn({ navigation }) {
         <View style={styles.title}>
           <Text style={styles.titleText}>Sign in</Text>
         </View>
-        <View style={styles.content}>
+        <KeyboardAvoidingView behavior="padding" style={styles.content}>
           <View style={styles.textWrapper}>
             <View style={styles.inputWrapper}>
               <Text style={styles.text}>email</Text>
@@ -114,7 +120,7 @@ export default function SignIn({ navigation }) {
               handlePress={handleBackPress}
             />
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </ContentBox>
     </Layout>
   );

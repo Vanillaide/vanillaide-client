@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import {
   View,
-  ScrollView,
   StyleSheet,
   Text,
   Keyboard,
   TextInput,
+  KeyboardAvoidingView,
 } from "react-native";
 
 import api from "../api/api";
@@ -69,23 +69,21 @@ export default function SignUp({ navigation }) {
 
   return (
     <Layout>
-      <ScrollView contentContainerStyle={{ paddingTop: 0, paddingBottom: 0 }}>
-        <AppHeader>
-          <Logo fontSize={30} />
-        </AppHeader>
-      </ScrollView>
+      <AppHeader>
+        <Logo fontSize={30} />
+      </AppHeader>
       <ContentBox>
-        <ScrollView contentContainerStyle={{ paddingTop: 0, paddingBottom: 0 }}>
-          <View style={style.titleWrapper}>
-            <Text style={style.title}>Sign Up</Text>
+        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={150}>
+          <View style={styles.titleWrapper}>
+            <Text style={styles.title}>Sign Up</Text>
           </View>
-          <View style={style.formContainer}>
-            <View style={style.labelContainer}>
-              <Text style={style.label}>name</Text>
+          <View style={styles.formContainer}>
+            <View style={styles.labelContainer}>
+              <Text style={styles.label}>name</Text>
             </View>
-            <View style={style.inputContainer}>
+            <View style={styles.inputContainer}>
               <TextInput
-                style={style.input}
+                style={styles.input}
                 autoCorrect={false}
                 value={userInput.username}
                 onChangeText={(text) => {
@@ -95,13 +93,13 @@ export default function SignUp({ navigation }) {
                 }}
               />
             </View>
-            <Text style={style.errorMsg}>{errorMsg.name}</Text>
+            <Text style={styles.errorMsg}>{errorMsg.name}</Text>
           </View>
-          <View style={style.formContainer}>
-            <Text style={style.label}>email</Text>
-            <View style={style.inputContainer}>
+          <View style={styles.formContainer}>
+            <Text style={styles.label}>email</Text>
+            <View style={styles.inputContainer}>
               <TextInput
-                style={style.input}
+                style={styles.input}
                 autoCorrect={false}
                 value={userInput.email}
                 onChangeText={(text) => {
@@ -111,13 +109,13 @@ export default function SignUp({ navigation }) {
                 }}
               />
             </View>
-            <Text style={style.errorMsg}>{errorMsg.email}</Text>
+            <Text style={styles.errorMsg}>{errorMsg.email}</Text>
           </View>
-          <View style={style.formContainer}>
-            <Text style={style.label}>password</Text>
-            <View style={style.inputContainer}>
+          <View style={styles.formContainer}>
+            <Text style={styles.label}>password</Text>
+            <View style={styles.inputContainer}>
               <TextInput
-                style={style.input}
+                style={styles.input}
                 secureTextEntry
                 autoCorrect={false}
                 value={userInput.password}
@@ -128,13 +126,13 @@ export default function SignUp({ navigation }) {
                 }}
               />
             </View>
-            <Text style={style.errorMsg}>{errorMsg.password}</Text>
+            <Text style={styles.errorMsg}>{errorMsg.password}</Text>
           </View>
-          <View style={style.formContainer}>
-            <Text style={style.label}>password confirm</Text>
-            <View style={style.inputContainer}>
+          <View style={styles.formContainer}>
+            <Text style={styles.label}>password confirm</Text>
+            <View style={styles.inputContainer}>
               <TextInput
-                style={style.input}
+                style={styles.input}
                 secureTextEntry
                 autoCorrect={false}
                 value={userInput.passwordConfirm}
@@ -145,14 +143,16 @@ export default function SignUp({ navigation }) {
                 }}
               />
             </View>
-            <Text style={style.errorMsg}>{errorMsg.passwordConfirm}</Text>
+            <Text style={styles.errorMsg}>{errorMsg.passwordConfirm}</Text>
           </View>
-          <CustomButton
-            text="Sign Up"
-            fontSize={20}
-            handlePress={handlePress}
-          />
-        </ScrollView>
+          <View style={styles.buttonWrapper}>
+            <CustomButton
+              text="Sign Up"
+              fontSize={20}
+              handlePress={handlePress}
+            />
+          </View>
+        </KeyboardAvoidingView>
       </ContentBox>
     </Layout>
   );
@@ -164,7 +164,7 @@ SignUp.propTypes = {
   }).isRequired,
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   formContainer: {
     marginBottom: 20,
     width: 300,
@@ -201,5 +201,8 @@ const style = StyleSheet.create({
     fontFamily: "FiraCode",
     fontSize: 10,
     color: "red",
+  },
+  buttonWrapper: {
+    alignItems: "center",
   },
 });
