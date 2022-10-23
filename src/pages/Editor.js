@@ -1,14 +1,16 @@
 import PropTypes from "prop-types";
-import { useContext, useRef } from "react";
+import { useState, useContext, useRef } from "react";
 import { StyleSheet, KeyboardAvoidingView, Alert } from "react-native";
 import { WebView } from "react-native-webview";
 
 import api from "../api/api";
+import NavBar from "../components/navBar/NavBar";
 import { SUCCEEDED_SAVE_PROJECT } from "../constants/ui";
 import { ProjectContext } from "../contexts/ProjectProvider";
 import Layout from "../layout/Layout";
 
 export default function Editor({ navigation }) {
+  const [isNavBarVisible, setIsNavBarVisible] = useState(false);
   const webViewRef = useRef();
   const {
     focusedProject: { projectId, code },
@@ -24,6 +26,10 @@ export default function Editor({ navigation }) {
         Alert.alert(SUCCEEDED_SAVE_PROJECT);
       }
     }
+
+    if (data.method === "showMenu") {
+      setIsNavBarVisible(true);
+    }
   };
 
   const handleOnLoad = () => {
@@ -32,8 +38,19 @@ export default function Editor({ navigation }) {
     }
   };
 
+  const handleClosePress = () => {
+    setIsNavBarVisible(false);
+  };
+
   return (
     <Layout>
+      {isNavBarVisible && (
+        <NavBar
+          isVisible={isNavBarVisible}
+          handlePress={handleClosePress}
+          navigation={navigation}
+        />
+      )}
       <KeyboardAvoidingView style={styles.container}>
         <WebView
           ref={webViewRef}
