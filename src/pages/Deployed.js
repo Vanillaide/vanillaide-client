@@ -12,7 +12,7 @@ export default function Deployed({ route }) {
       <KeyboardAvoidingView style={styles.container}>
         <WebView
           source={{
-            uri: `${process.env.REACT_APP_BACK_URL}/api/projects/${projectId}/deployment`,
+            uri: `http://192.168.0.17:8000/api/projects/${projectId}/deployment`,
           }}
         />
       </KeyboardAvoidingView>

@@ -37,7 +37,7 @@ export default function ProjectCard({
             style={styles.deployStateWrapper}
           >
             <Text style={styles.deployState} numberOfLines={1}>
-              🔗 deployed
+              deployed
             </Text>
           </TouchableOpacity>
         )}

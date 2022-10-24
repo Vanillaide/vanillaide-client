@@ -56,7 +56,7 @@ export default function Editor({ navigation }) {
           ref={webViewRef}
           onMessage={handleOnMessage}
           onLoad={handleOnLoad}
-          source={{ uri: process.env.REACT_APP_WEBVIEW_URL }}
+          source={{ uri: "http://192.168.0.17:3000" }}
         />
       </KeyboardAvoidingView>
     </Layout>
