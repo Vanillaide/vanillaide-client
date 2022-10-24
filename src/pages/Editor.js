@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 import { useState, useContext, useRef } from "react";
-import { StyleSheet, KeyboardAvoidingView, Alert } from "react-native";
+import { StyleSheet, View, Alert, Dimensions } from "react-native";
 import { WebView } from "react-native-webview";
 
 import api from "../api/api";
 import NavBar from "../components/navBar/NavBar";
 import { SUCCEEDED_SAVE_PROJECT } from "../constants/ui";
 import { ProjectContext } from "../contexts/ProjectProvider";
+import { useKeyboardHeight } from "../hooks/useKeyboardHeight";
 import Layout from "../layout/Layout";
 
 export default function Editor({ navigation }) {
@@ -15,6 +16,10 @@ export default function Editor({ navigation }) {
   const {
     focusedProject: { projectId, code },
   } = useContext(ProjectContext);
+
+  const windowHeight = Dimensions.get("window").height;
+  const keyboardHeight = useKeyboardHeight();
+  const currentHeight = windowHeight - keyboardHeight;
 
   const handleOnMessage = async (ev) => {
     const data = JSON.parse(ev.nativeEvent.data);
@@ -51,14 +56,14 @@ export default function Editor({ navigation }) {
           navigation={navigation}
         />
       )}
-      <KeyboardAvoidingView style={styles.container}>
+      <View style={styles(currentHeight, keyboardHeight).container}>
         <WebView
           ref={webViewRef}
           onMessage={handleOnMessage}
           onLoad={handleOnLoad}
           source={{ uri: process.env.REACT_APP_WEBVIEW_URL }}
         />
-      </KeyboardAvoidingView>
+      </View>
     </Layout>
   );
 }
@@ -69,10 +74,11 @@ Editor.propTypes = {
   }).isRequired,
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-  },
-});
+const styles = (height, marginBottom) =>
+  StyleSheet.create({
+    container: {
+      marginBottom,
+      width: "100%",
+      height,
+    },
+  });
