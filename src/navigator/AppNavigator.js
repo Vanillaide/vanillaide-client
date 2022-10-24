@@ -4,6 +4,7 @@ import { useContext } from "react";
 
 import { UserContext } from "../contexts/AuthProvider";
 import Deploy from "../pages/Deploy";
+import Deployed from "../pages/Deployed";
 import Editor from "../pages/Editor";
 import Home from "../pages/Home";
 import Performance from "../pages/Performance";
@@ -30,6 +31,7 @@ export default function AppNavigator() {
             <Screen name="ProjectList" component={ProjectList} />
             <Screen name="Editor" component={Editor} />
             <Screen name="Deploy" component={Deploy} />
+            <Screen name="Deployed" component={Deployed} />
             <Screen name="Performance" component={Performance} />
           </>
         )}
