@@ -14,8 +14,10 @@ export default function ProjectCard({
   projectName,
   code,
   deployState,
+  deployLink,
   handleCardPress,
   handleDetailPress,
+  handleDeployedPress,
 }) {
   return (
     <TouchableOpacity
@@ -30,11 +32,14 @@ export default function ProjectCard({
       </View>
       <View style={styles.projectDetailsWrapper}>
         {deployState && (
-          <View style={styles.deployStateWrapper}>
+          <TouchableOpacity
+            onPress={() => handleDeployedPress(deployLink)}
+            style={styles.deployStateWrapper}
+          >
             <Text style={styles.deployState} numberOfLines={1}>
-              deployed
+              🔗 deployed
             </Text>
-          </View>
+          </TouchableOpacity>
         )}
         <TouchableOpacity
           onPress={() =>
@@ -53,8 +58,10 @@ ProjectCard.propTypes = {
   projectName: PropTypes.string.isRequired,
   code: PropTypes.object.isRequired,
   deployState: PropTypes.bool.isRequired,
+  deployLink: PropTypes.string.isRequired,
   handleCardPress: PropTypes.func.isRequired,
   handleDetailPress: PropTypes.func.isRequired,
+  handleDeployedPress: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -86,8 +93,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginRight: 10,
-    width: 61,
-    height: 16,
+    width: 70,
+    height: 25,
     borderRadius: 20,
     backgroundColor: DARK_GREY_50,
   },

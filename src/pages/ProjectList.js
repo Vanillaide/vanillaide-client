@@ -1,5 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
+import * as Clipboard from "expo-clipboard";
 import PropTypes from "prop-types";
 import { useState, useCallback, useContext } from "react";
 import {
@@ -100,6 +101,10 @@ export default function ProjectList({ navigation }) {
     }
   };
 
+  const handleDeployedPress = async (deployLink) => {
+    await Clipboard.setStringAsync(deployLink);
+  };
+
   const handleCancelPress = () => {
     setProjectNameInput("");
     setErrorMessage("");
@@ -198,8 +203,10 @@ export default function ProjectList({ navigation }) {
                     projectName={name}
                     code={code}
                     deployState={!!deployLink}
+                    deployLink={deployLink}
                     handleCardPress={handleCardPress}
                     handleDetailPress={handleDetailPress}
+                    handleDeployedPress={handleDeployedPress}
                   />
                 );
               })}

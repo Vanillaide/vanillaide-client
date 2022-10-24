@@ -19,6 +19,7 @@ export default function Deploy({ navigation }) {
   const [isFinished, setIsFinished] = useState(false);
   const [isNavBarVisible, setIsNavBarVisible] = useState(false);
   const [deployLink, setDeployLink] = useState("");
+
   const {
     focusedProject: { projectId, projectName },
   } = useContext(ProjectContext);
@@ -36,7 +37,7 @@ export default function Deploy({ navigation }) {
   };
 
   const handleGoToPress = () => {
-    // TODO : request to backend /api/projects/:projectId/deployment
+    navigation.navigate("Deployed", { projectId });
   };
 
   const handleClosePress = () => {
