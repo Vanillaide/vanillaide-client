@@ -74,11 +74,11 @@ Editor.propTypes = {
   }).isRequired,
 };
 
-const styles = (height, marginBottom) =>
+const styles = (currentHeight, keyboardHeight) =>
   StyleSheet.create({
     container: {
-      marginBottom,
       width: "100%",
-      height,
+      height: currentHeight,
+      marginBottom: keyboardHeight,
     },
   });
