@@ -1,14 +1,11 @@
-import { useContext } from "react";
+import PropTypes from "prop-types";
 import { StyleSheet, KeyboardAvoidingView } from "react-native";
 import WebView from "react-native-webview";
 
-import { ProjectContext } from "../contexts/ProjectProvider";
 import Layout from "../layout/Layout";
 
-export default function Deployed() {
-  const {
-    focusedProject: { projectId },
-  } = useContext(ProjectContext);
+export default function Deployed({ route }) {
+  const { projectId } = route.params;
 
   return (
     <Layout>
@@ -30,3 +27,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
+
+Deployed.propTypes = {
+  route: PropTypes.object,
+};

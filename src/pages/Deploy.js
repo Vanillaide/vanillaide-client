@@ -37,7 +37,7 @@ export default function Deploy({ navigation }) {
   };
 
   const handleGoToPress = () => {
-    navigation.navigate("Deployed");
+    navigation.navigate("Deployed", { projectId });
   };
 
   const handleClosePress = () => {
