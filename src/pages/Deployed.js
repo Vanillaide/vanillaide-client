@@ -7,6 +7,8 @@ import Layout from "../layout/Layout";
 export default function Deployed({ route }) {
   const { projectId } = route.params;
 
+  console.log(route);
+
   return (
     <Layout>
       <KeyboardAvoidingView style={styles.container}>
@@ -29,5 +31,9 @@ const styles = StyleSheet.create({
 });
 
 Deployed.propTypes = {
-  route: PropTypes.object,
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      projectId: PropTypes.string.isRequired,
+    }),
+  }),
 };
