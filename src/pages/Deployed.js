@@ -7,8 +7,6 @@ import Layout from "../layout/Layout";
 export default function Deployed({ route }) {
   const { projectId } = route.params;
 
-  console.log(route);
-
   return (
     <Layout>
       <KeyboardAvoidingView style={styles.container}>
