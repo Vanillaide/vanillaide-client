@@ -2,31 +2,32 @@ import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 
-import { LIGHT_GREY_150 } from "../../constants/color";
+import {
+  CONTENT,
+  LIGHT_GREY_150,
+  GREEN_100,
+  RED_100,
+  YELLOW_50,
+} from "../../constants/color";
 
 export default function ScoreBar({ category, score, barWidth }) {
-  const [barColor, setBarColor] = useState("black");
-
-  // const { width: screenWidth } = Dimensions.get("window");
-  // console.log(screenWidth);
-  // const barWidth = (((screenWidth * 9) / 10) * score) / 100;
+  const [barColor, setBarColor] = useState(CONTENT);
   const scoreBarWidth = (barWidth * score) / 100;
-  console.log(scoreBarWidth);
 
   useEffect(() => {
     if (score < 40) {
-      setBarColor("red");
+      setBarColor(RED_100);
     } else if (score < 70) {
-      setBarColor("yellow");
+      setBarColor(YELLOW_50);
     } else {
-      setBarColor("white");
+      setBarColor(GREEN_100);
     }
   }, []);
 
   return (
     <View style={styles().categoryWrapper}>
-      <Text>{category}</Text>
-      <Text>{score}</Text>
+      <Text style={styles().category}>{category}</Text>
+      <Text style={styles().score}>{score}</Text>
       <View style={styles(scoreBarWidth, barColor).bar} />
     </View>
   );
@@ -41,15 +42,16 @@ ScoreBar.propTypes = {
 const styles = (barWidth, barColor) =>
   StyleSheet.create({
     categoryWrapper: {
-      margin: 20,
+      marginBottom: 10,
+      marginLeft: 17,
     },
     category: {
-      fontSize: 30,
+      fontSize: 15,
       fontFamily: "FiraCode",
       color: LIGHT_GREY_150,
     },
     score: {
-      fontSize: 30,
+      fontSize: 15,
       fontFamily: "FiraCode",
       color: LIGHT_GREY_150,
     },
