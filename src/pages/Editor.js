@@ -3,12 +3,15 @@ import { useState, useContext, useRef } from "react";
 import { StyleSheet, View, Alert, Dimensions } from "react-native";
 import { WebView } from "react-native-webview";
 
+import getEnvVars from "../../environment";
 import api from "../api/api";
 import NavBar from "../components/navBar/NavBar";
 import { SUCCEEDED_SAVE_PROJECT } from "../constants/ui";
 import { ProjectContext } from "../contexts/ProjectProvider";
 import { useKeyboardHeight } from "../hooks/useKeyboardHeight";
 import Layout from "../layout/Layout";
+
+const { WEBVIEW_URL } = getEnvVars();
 
 export default function Editor({ navigation }) {
   const [isNavBarVisible, setIsNavBarVisible] = useState(false);
@@ -61,7 +64,7 @@ export default function Editor({ navigation }) {
           ref={webViewRef}
           onMessage={handleOnMessage}
           onLoad={handleOnLoad}
-          source={{ uri: process.env.REACT_APP_WEBVIEW_URL }}
+          source={{ uri: WEBVIEW_URL }}
         />
       </View>
     </Layout>

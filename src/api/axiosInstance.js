@@ -1,7 +1,10 @@
 import axios from "axios";
 
+import getEnvVars from "../../environment";
+const { BACK_URL } = getEnvVars();
+
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BACK_URL,
+  baseURL: BACK_URL,
 });
 
 export default axiosInstance;
