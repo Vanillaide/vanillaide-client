@@ -2,7 +2,10 @@ import PropTypes from "prop-types";
 import { StyleSheet, KeyboardAvoidingView } from "react-native";
 import WebView from "react-native-webview";
 
+import getEnvVars from "../../environment";
 import Layout from "../layout/Layout";
+
+const { BACK_URL } = getEnvVars();
 
 export default function Deployed({ route }) {
   const { projectId } = route.params;
@@ -12,7 +15,7 @@ export default function Deployed({ route }) {
       <KeyboardAvoidingView style={styles.container}>
         <WebView
           source={{
-            uri: `${process.env.REACT_APP_BACK_URL}/api/projects/${projectId}/deployment`,
+            uri: `${BACK_URL}/api/projects/${projectId}/deployment`,
           }}
         />
       </KeyboardAvoidingView>
