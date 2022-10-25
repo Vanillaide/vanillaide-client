@@ -10,6 +10,7 @@ import {
   FAILED_DELETE_PROJECT,
   FAILED_SAVE_PROJECT,
   FAILED_DEPLOYMENT,
+  FAILED_POST_PERFORMANCE,
 } from "../constants/error";
 import axiosInstance from "./axiosInstance";
 
@@ -171,6 +172,29 @@ async function postDeployment(projectId) {
   }
 }
 
+async function postPerformance(projectId) {
+  try {
+    const res = await axiosInstance.post(
+      `/api/projects/${projectId}/performance`,
+    );
+
+    return {
+      status: res.status,
+      measuringResult: res.data.measuringResult,
+    };
+  } catch (err) {
+    const errorStatus = err.response.status;
+
+    if (errorStatus === 400) {
+      Alert.alert(FAILED_POST_PERFORMANCE);
+    }
+
+    if (errorStatus === 500) {
+      Alert.alert(INTERNAL_SERVER_ERROR);
+    }
+  }
+}
+
 export default {
   postSignUp,
   postLogIn,
@@ -180,4 +204,5 @@ export default {
   deleteProject,
   patchProject,
   postDeployment,
+  postPerformance,
 };

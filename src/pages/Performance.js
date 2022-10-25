@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 import { useState, useContext } from "react";
 import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 
+import api from "../api/api";
 import CustomButton from "../components/CustomButton";
 import Logo from "../components/Logo";
 import NavBar from "../components/navBar/NavBar";
+import PerformanceResult from "../components/performance/PerformanceResult";
 import { LIGHT_GREY_100 } from "../constants/color";
 import { ProjectContext } from "../contexts/ProjectProvider";
 import AppHeader from "../layout/AppHeader";
@@ -15,10 +17,28 @@ import Layout from "../layout/Layout";
 export default function Performance({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isNavBarVisible, setIsNavBarVisible] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
+  const [performanceScore, setPerformanceScore] = useState({
+    performance: 0,
+    accessibility: 0,
+    bestPractices: 0,
+    seo: 0,
+    pwa: 0,
+  });
   const { focusedProject } = useContext(ProjectContext);
 
-  const handlePress = () => {
+  const handlePress = async () => {
     setIsLoading(true);
+
+    const { status, measuringResult } = await api.postPerformance(
+      focusedProject.projectId,
+    );
+
+    if (status === 200) {
+      setPerformanceScore(measuringResult);
+      setIsLoading(false);
+      setIsFinished(true);
+    }
   };
 
   const handleClosePress = () => {
@@ -45,7 +65,7 @@ export default function Performance({ navigation }) {
         <View />
       </AppHeader>
       <ContentBox>
-        {!isLoading ? (
+        {!isFinished && !isLoading ? (
           <>
             <Text style={styles.projectName}>{focusedProject.projectName}</Text>
             <CustomButton
@@ -63,6 +83,9 @@ export default function Performance({ navigation }) {
             size="large"
             color={LIGHT_GREY_100}
           />
+        )}
+        {isFinished && (
+          <PerformanceResult performanceScore={performanceScore} />
         )}
       </ContentBox>
     </Layout>
