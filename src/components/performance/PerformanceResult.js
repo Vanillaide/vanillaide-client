@@ -16,7 +16,7 @@ export default function PerformanceResult({ performanceScore }) {
         <Text style={styles.title}>Performance</Text>
         <Text style={styles.title}>Result</Text>
       </View>
-      <View style={styles.barCotainer}>
+      <View style={styles.barWrapper}>
         <ScoreBar
           category="Performance"
           score={performance}
@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   titleWrapper: {
-    alignItems: "center",
     marginBottom: 5,
+    alignItems: "center",
   },
   title: {
     fontSize: 28,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     color: LIGHT_GREY_150,
     marginBottom: 3,
   },
-  barCotainer: {
+  barWrapper: {
     width: "100%",
     alignItems: "flex-start",
   },

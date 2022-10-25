@@ -25,7 +25,7 @@ export default function ScoreBar({ category, score, barWidth }) {
   }, []);
 
   return (
-    <View style={styles().categoryWrapper}>
+    <View style={styles().categoryContainer}>
       <Text style={styles().category}>{category}</Text>
       <Text style={styles().score}>{score}</Text>
       <View style={styles(scoreBarWidth, barColor).bar} />
@@ -39,9 +39,9 @@ ScoreBar.propTypes = {
   barWidth: PropTypes.number.isRequired,
 };
 
-const styles = (barWidth, barColor) =>
+const styles = (scoreBarWidth, barColor) =>
   StyleSheet.create({
-    categoryWrapper: {
+    categoryContainer: {
       marginBottom: 10,
       marginLeft: 17,
     },
@@ -56,7 +56,7 @@ const styles = (barWidth, barColor) =>
       color: LIGHT_GREY_150,
     },
     bar: {
-      width: barWidth,
+      width: scoreBarWidth,
       height: 30,
       backgroundColor: barColor,
     },

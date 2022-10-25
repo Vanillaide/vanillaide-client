@@ -19,11 +19,11 @@ export default function Performance({ navigation }) {
   const [isNavBarVisible, setIsNavBarVisible] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [performanceScore, setPerformanceScore] = useState({
-    performance: "",
-    accessibility: "",
-    bestPractices: "",
-    seo: "",
-    pwa: "",
+    performance: 0,
+    accessibility: 0,
+    bestPractices: 0,
+    seo: 0,
+    pwa: 0,
   });
   const { focusedProject } = useContext(ProjectContext);
 
