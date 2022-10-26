@@ -1,13 +1,13 @@
 import { Feather } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 import { useState, useContext } from "react";
-import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
+import { StyleSheet, View, ActivityIndicator, Text } from "react-native";
 
 import api from "../api/api";
-import CustomButton from "../components/CustomButton";
 import Logo from "../components/Logo";
 import NavBar from "../components/navBar/NavBar";
 import PerformanceResult from "../components/performance/PerformanceResult";
+import PerformanceStart from "../components/performance/PerformanceStart";
 import { LIGHT_GREY_100 } from "../constants/color";
 import { ProjectContext } from "../contexts/ProjectProvider";
 import AppHeader from "../layout/AppHeader";
@@ -67,22 +67,20 @@ export default function Performance({ navigation }) {
       <ContentBox>
         {!isFinished && !isLoading ? (
           <>
-            <Text style={styles.projectName}>{focusedProject.projectName}</Text>
-            <CustomButton
-              text="start measuring"
-              fontSize={20}
+            <PerformanceStart
+              projectName={focusedProject.projectName}
               handlePress={handlePress}
-              buttonWidth={250}
-              buttonHeight={50}
-              borderRadius={30}
             />
           </>
         ) : (
-          <ActivityIndicator
-            animating={isLoading}
-            size="large"
-            color={LIGHT_GREY_100}
-          />
+          <>
+            <Text style={styles.loadingText}>Measuring...</Text>
+            <ActivityIndicator
+              animating={isLoading}
+              size="large"
+              color={LIGHT_GREY_100}
+            />
+          </>
         )}
         {isFinished && (
           <PerformanceResult performanceScore={performanceScore} />
@@ -99,9 +97,9 @@ Performance.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  projectName: {
-    marginBottom: 10,
-    fontSize: 70,
+  loadingText: {
+    marginBottom: 30,
+    fontSize: 30,
     fontFamily: "FiraCode",
     color: LIGHT_GREY_100,
   },
