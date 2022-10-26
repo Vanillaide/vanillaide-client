@@ -4,17 +4,17 @@ import { StyleSheet, Text } from "react-native";
 import { LIGHT_GREY_100 } from "../../constants/color";
 import CustomButton from "../CustomButton";
 
-export default function DeployStart({ projectName, handlePress }) {
+export default function PerformanceStart({ projectName, handlePress }) {
   return (
     <>
       <Text style={styles.projectName}>
-        {projectName.length > 12 ? projectName + "..." : projectName}
+        {projectName.length > 15 ? projectName + "..." : projectName}
       </Text>
       <CustomButton
-        text="deploy"
+        text="start measuring"
         fontSize={20}
         handlePress={handlePress}
-        buttonWidth={180}
+        buttonWidth={250}
         buttonHeight={50}
         borderRadius={30}
       />
@@ -22,7 +22,7 @@ export default function DeployStart({ projectName, handlePress }) {
   );
 }
 
-DeployStart.propTypes = {
+PerformanceStart.propTypes = {
   projectName: PropTypes.string.isRequired,
   handlePress: PropTypes.func.isRequired,
 };

@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   pageTitle: {
     marginBottom: 10,
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: "FiraCode",
     color: WHITE,
   },
