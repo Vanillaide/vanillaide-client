@@ -16,8 +16,8 @@ ContentBox.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
     width: screenWidth,
     height: contentBoxHeight,
     backgroundColor: CONTENT,

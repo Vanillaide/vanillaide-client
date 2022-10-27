@@ -58,13 +58,13 @@ const styles = ({
 }) =>
   StyleSheet.create({
     button: {
-      backgroundColor: buttonBackgroundColor,
+      margin: buttonMargin,
+      justifyContent: "center",
+      alignItems: "center",
       width: buttonWidth,
       height: buttonHeight,
       borderRadius: buttonBorderRadius,
-      justifyContent: "center",
-      alignItems: "center",
-      margin: buttonMargin,
+      backgroundColor: buttonBackgroundColor,
     },
     text: {
       fontSize,

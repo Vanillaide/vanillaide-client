@@ -42,8 +42,8 @@ ScoreBar.propTypes = {
 const styles = (scoreBarWidth, barColor) =>
   StyleSheet.create({
     categoryContainer: {
-      marginBottom: 10,
       marginLeft: 17,
+      marginBottom: 10,
     },
     category: {
       fontSize: 15,
