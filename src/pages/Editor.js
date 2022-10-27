@@ -80,8 +80,8 @@ Editor.propTypes = {
 const styles = (currentHeight, keyboardHeight) =>
   StyleSheet.create({
     container: {
+      marginBottom: keyboardHeight,
       width: "100%",
       height: currentHeight,
-      marginBottom: keyboardHeight,
     },
   });

@@ -12,10 +12,11 @@ import {
 import api from "../api/api";
 import CustomButton from "../components/CustomButton";
 import Logo from "../components/Logo";
+import { LIGHT_GREY_50, RED_50 } from "../constants/color";
 import AppHeader from "../layout/AppHeader";
 import ContentBox from "../layout/ContentBox";
 import Layout from "../layout/Layout";
-import signupValidation from "./signupValidation";
+import signupValidation from "../utils/signupValidation";
 
 export default function SignUp({ navigation }) {
   const [userInput, setUserInput] = useState({
@@ -32,6 +33,22 @@ export default function SignUp({ navigation }) {
     passwordConfirm: "",
   });
 
+  const handleNameChange = (text) => {
+    setUserInput((prev) => ({ ...prev, username: text }));
+  };
+
+  const handleEmailChange = (text) => {
+    setUserInput((prev) => ({ ...prev, email: text }));
+  };
+
+  const handlePasswordChange = (text) => {
+    setUserInput((prev) => ({ ...prev, password: text }));
+  };
+
+  const handlePasswordConfirmChange = (text) => {
+    setUserInput((prev) => ({ ...prev, passwordConfirm: text }));
+  };
+
   const handlePress = async () => {
     Keyboard.dismiss();
     const { username, email, password, passwordConfirm } = userInput;
@@ -47,11 +64,7 @@ export default function SignUp({ navigation }) {
       ),
     ];
 
-    const isAllValid = validations.every((result) => {
-      if (result) return true;
-
-      return false;
-    });
+    const isAllValid = validations.every((isPassed) => isPassed);
 
     if (isAllValid) {
       const status = await api.postSignUp(
@@ -77,73 +90,55 @@ export default function SignUp({ navigation }) {
           <View style={styles.titleWrapper}>
             <Text style={styles.title}>Sign Up</Text>
           </View>
-          <View style={styles.formContainer}>
-            <View style={styles.labelContainer}>
-              <Text style={styles.label}>name</Text>
-            </View>
-            <View style={styles.inputContainer}>
+          <View style={styles.formWrapper}>
+            <Text style={styles.labelText}>name</Text>
+            <View style={styles.inputWrapper}>
               <TextInput
                 style={styles.input}
                 autoCorrect={false}
                 value={userInput.username}
-                onChangeText={(text) => {
-                  setUserInput((prev) => {
-                    return { ...prev, username: text };
-                  });
-                }}
+                onChangeText={(text) => handleNameChange(text)}
               />
             </View>
-            <Text style={styles.errorMsg}>{errorMsg.name}</Text>
+            <Text style={styles.errorText}>{errorMsg.name}</Text>
           </View>
-          <View style={styles.formContainer}>
-            <Text style={styles.label}>email</Text>
-            <View style={styles.inputContainer}>
+          <View style={styles.formWrapper}>
+            <Text style={styles.labelText}>email</Text>
+            <View style={styles.inputWrapper}>
               <TextInput
                 style={styles.input}
                 autoCorrect={false}
                 value={userInput.email}
-                onChangeText={(text) => {
-                  setUserInput((prev) => {
-                    return { ...prev, email: text };
-                  });
-                }}
+                onChangeText={(text) => handleEmailChange(text)}
               />
             </View>
-            <Text style={styles.errorMsg}>{errorMsg.email}</Text>
+            <Text style={styles.errorText}>{errorMsg.email}</Text>
           </View>
-          <View style={styles.formContainer}>
-            <Text style={styles.label}>password</Text>
-            <View style={styles.inputContainer}>
+          <View style={styles.formWrapper}>
+            <Text style={styles.labelText}>password</Text>
+            <View style={styles.inputWrapper}>
               <TextInput
                 style={styles.input}
                 secureTextEntry
                 autoCorrect={false}
                 value={userInput.password}
-                onChangeText={(text) => {
-                  setUserInput((prev) => {
-                    return { ...prev, password: text };
-                  });
-                }}
+                onChangeText={(text) => handlePasswordChange(text)}
               />
             </View>
-            <Text style={styles.errorMsg}>{errorMsg.password}</Text>
+            <Text style={styles.errorText}>{errorMsg.password}</Text>
           </View>
-          <View style={styles.formContainer}>
-            <Text style={styles.label}>password confirm</Text>
-            <View style={styles.inputContainer}>
+          <View style={styles.formWrapper}>
+            <Text style={styles.labelText}>password confirm</Text>
+            <View style={styles.inputWrapper}>
               <TextInput
                 style={styles.input}
                 secureTextEntry
                 autoCorrect={false}
                 value={userInput.passwordConfirm}
-                onChangeText={(text) => {
-                  setUserInput((prev) => {
-                    return { ...prev, passwordConfirm: text };
-                  });
-                }}
+                onChangeText={(text) => handlePasswordConfirmChange(text)}
               />
             </View>
-            <Text style={styles.errorMsg}>{errorMsg.passwordConfirm}</Text>
+            <Text style={styles.errorText}>{errorMsg.passwordConfirm}</Text>
           </View>
           <View style={styles.buttonWrapper}>
             <CustomButton
@@ -165,7 +160,7 @@ SignUp.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  formContainer: {
+  formWrapper: {
     marginBottom: 20,
     width: 300,
   },
@@ -175,32 +170,29 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontFamily: "FiraCode",
-    color: "lightgrey",
+    color: LIGHT_GREY_50,
   },
-  labelContainer: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-  },
-  label: {
+  labelText: {
     fontFamily: "FiraCode",
-    color: "lightgrey",
+    color: LIGHT_GREY_50,
   },
-  inputContainer: {
-    height: 50,
-    backgroundColor: "lightgrey",
+  inputWrapper: {
     flexDirection: "row",
+    width: "100%",
+    height: 50,
     borderWidth: 0.5,
     borderRadius: 5,
+    backgroundColor: LIGHT_GREY_50,
   },
   input: {
-    fontFamily: "FiraCode",
     paddingLeft: 12,
     width: "100%",
+    fontFamily: "FiraCode",
   },
-  errorMsg: {
+  errorText: {
     fontFamily: "FiraCode",
     fontSize: 10,
-    color: "red",
+    color: RED_50,
   },
   buttonWrapper: {
     alignItems: "center",

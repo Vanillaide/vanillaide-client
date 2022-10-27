@@ -17,8 +17,8 @@ Layout.propTypes = {
 const styles = StyleSheet.create({
   container: {
     marginTop: statusBarHeight,
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
     width: screenWidth,
     height: screenHeight,
     backgroundColor: CONTENT,

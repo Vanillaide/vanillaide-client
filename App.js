@@ -6,7 +6,7 @@ import ProjectProvider from "./src/contexts/ProjectProvider";
 import AppNavigator from "./src/navigator/AppNavigator";
 
 export default function App() {
-  const [isReady, setIsReady] = useState(false);
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
 
   useEffect(() => {
     async function fetchFont() {
@@ -14,7 +14,7 @@ export default function App() {
         FiraCode: require("./assets/fonts/FiraCode-Regular.ttf"),
         Playball: require("./assets/fonts/Playball-Regular.ttf"),
       });
-      setIsReady(true);
+      setIsFontLoaded(true);
     }
 
     fetchFont();
@@ -22,7 +22,7 @@ export default function App() {
 
   return (
     <>
-      {isReady && (
+      {isFontLoaded && (
         <AuthProvider>
           <ProjectProvider>
             <AppNavigator />

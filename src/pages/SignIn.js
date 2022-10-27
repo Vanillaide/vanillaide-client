@@ -140,11 +140,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   input: {
+    paddingLeft: 15,
     width: 300,
     height: 50,
-    backgroundColor: LIGHT_GREY_50,
     borderRadius: 10,
-    paddingLeft: 15,
+    backgroundColor: LIGHT_GREY_50,
     fontSize: 15,
   },
   text: {
@@ -167,11 +167,11 @@ const styles = StyleSheet.create({
     color: WHITE,
   },
   errorText: {
+    marginLeft: 10,
     fontFamily: "FiraCode",
     fontStyle: "normal",
     fontSize: 15,
     color: RED_50,
-    marginLeft: 10,
   },
   textWrapper: {
     margin: 10,

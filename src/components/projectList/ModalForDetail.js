@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   modalContainer: {
     position: "absolute",
     bottom: 0,
-    alignSelf: "center",
     justifyContent: "center",
+    alignSelf: "center",
     padding: 20,
     width: screenWidth,
     height: 163,

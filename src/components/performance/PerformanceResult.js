@@ -51,22 +51,22 @@ PerformanceResult.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
+    margin: 0,
     width: "100%",
     height: "100%",
-    margin: 0,
   },
   titleWrapper: {
     marginBottom: 5,
     alignItems: "center",
   },
   title: {
+    marginBottom: 3,
     fontSize: 28,
     fontFamily: "FiraCode",
     color: LIGHT_GREY_150,
-    marginBottom: 3,
   },
   barWrapper: {
-    width: "100%",
     alignItems: "flex-start",
+    width: "100%",
   },
 });

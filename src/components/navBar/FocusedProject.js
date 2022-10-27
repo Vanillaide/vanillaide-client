@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   projectName: {
-    fontSize: 20,
     marginLeft: 20,
+    fontSize: 20,
     fontFamily: "FiraCode",
     color: LIGHT_GREY_100,
   },
