@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     position: "absolute",
     top: "40%",
+    padding: 10,
     justifyContent: "center",
     alignSelf: "center",
     width: 304,
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   pageTitle: {
     marginBottom: 10,
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: "FiraCode",
     color: WHITE,
   },
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "flex-end",
-    height: 60,
+    height: 40,
   },
   errorText: {
     textAlign: "center",
@@ -88,8 +89,9 @@ const styles = StyleSheet.create({
   },
   input: {
     alignSelf: "center",
+    padding: 10,
     width: 251,
-    height: 27,
+    height: 40,
     borderRadius: 5,
     backgroundColor: LIGHT_GREY_50,
   },

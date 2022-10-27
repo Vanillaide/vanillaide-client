@@ -28,7 +28,9 @@ export default function ProjectCard({
     >
       <View style={styles.projectNameWrapper}>
         <FontAwesome name="folder" size={22} color={BLACK} />
-        <Text style={styles.projectName}>{projectName}</Text>
+        <Text style={styles.projectName}>
+          {projectName.length > 8 ? projectName + "..." : projectName}
+        </Text>
       </View>
       <View style={styles.projectDetailsWrapper}>
         {deployState && (
