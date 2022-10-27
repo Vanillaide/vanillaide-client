@@ -12,7 +12,7 @@ export default function PerformanceStart({ projectName, handlePress }) {
       </Text>
       <CustomButton
         text="start measuring"
-        fontSize={20}
+        fontSize={16}
         handlePress={handlePress}
         buttonWidth={250}
         buttonHeight={50}

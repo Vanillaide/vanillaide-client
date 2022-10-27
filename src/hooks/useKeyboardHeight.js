@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Keyboard, StatusBar } from "react-native";
+import { Keyboard } from "react-native";
 
 export const useKeyboardHeight = () => {
   const [keyboardHeight, setKeyboardHeight] = useState(0);
 
   const onKeyboardDidShow = (ev) => {
-    setKeyboardHeight(ev.endCoordinates.height + StatusBar.currentHeight);
+    setKeyboardHeight(ev.endCoordinates.height);
   };
 
   const onKeyboardDidHide = () => {

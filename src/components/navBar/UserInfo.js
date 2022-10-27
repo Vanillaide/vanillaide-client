@@ -11,10 +11,10 @@ export default function UserInfo({ username, email, handlePress }) {
       <Text style={styles.userEmail}>{email}</Text>
       <CustomButton
         text="Sign out"
-        fontSize={10}
+        fontSize={8}
         handlePress={handlePress}
-        buttonWidth={70}
-        buttonHeight={28}
+        buttonWidth={76}
+        buttonHeight={32}
         buttonMargin={5}
       />
     </View>

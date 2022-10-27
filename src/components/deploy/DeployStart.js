@@ -12,7 +12,7 @@ export default function DeployStart({ projectName, handlePress }) {
       </Text>
       <CustomButton
         text="deploy"
-        fontSize={20}
+        fontSize={16}
         handlePress={handlePress}
         buttonWidth={180}
         buttonHeight={50}

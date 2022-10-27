@@ -21,7 +21,7 @@ export default function DeploySuccess({ deployLink, handleGoToPress }) {
         <Text style={styles.successText}>Successed!</Text>
         <CustomButton
           text="Go To"
-          fontSize={25}
+          fontSize={20}
           handlePress={handleGoToPress}
           buttonWidth={140}
           buttonHeight={50}
