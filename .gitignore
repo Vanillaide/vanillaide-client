@@ -17,3 +17,6 @@ web-build/
 .idea
 
 .env.development
+environment.js
+
+/.husky/_/

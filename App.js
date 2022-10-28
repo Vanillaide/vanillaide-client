@@ -1,20 +1,34 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import * as Font from "expo-font";
+import { useEffect, useState } from "react";
+
+import AuthProvider from "./src/contexts/AuthProvider";
+import ProjectProvider from "./src/contexts/ProjectProvider";
+import AppNavigator from "./src/navigator/AppNavigator";
 
 export default function App() {
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function fetchFont() {
+      await Font.loadAsync({
+        FiraCode: require("./assets/fonts/FiraCode-Regular.ttf"),
+        Playball: require("./assets/fonts/Playball-Regular.ttf"),
+      });
+      setIsFontLoaded(true);
+    }
+
+    fetchFont();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      {isFontLoaded && (
+        <AuthProvider>
+          <ProjectProvider>
+            <AppNavigator />
+          </ProjectProvider>
+        </AuthProvider>
+      )}
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
