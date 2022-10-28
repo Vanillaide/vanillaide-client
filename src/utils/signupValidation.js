@@ -16,7 +16,7 @@ function isValidName(name, setErrorMsg) {
   if (NAME_REGEX.test(name) === false) {
     setErrorMsg((prev) => ({
       ...prev,
-      name: "Enter Enligsh or Korean name",
+      name: "Enter English or Korean name",
     }));
 
     return false;
