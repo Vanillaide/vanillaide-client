@@ -18,3 +18,5 @@ web-build/
 
 .env.development
 environment.js
+
+/.husky/_/
