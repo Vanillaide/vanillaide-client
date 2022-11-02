@@ -45,7 +45,7 @@ HTML, CSS, Javascript 코드를 작성할 수 있고, 배포 후에는 친구에
 - [Directory Structure](#directory-structure) 
 - [How to start](#how-to-start)
 - [Challenges](#challenges)
-- [What we can do to improve](#What-we-can-do-to-improve)
+- [What we can do to improve](#what-we-can-do-to-improve)
 - [Planning](#planning) 
 - [Member](#member)
 
