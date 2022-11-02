@@ -162,9 +162,9 @@ React를 학습하고 사용한 경험을 기반으로 다른 앱 프레임워�
 <br/>
 
 # Github Repositories
+-  [Backend Repo](https://github.com/Vanillaide/vanillaide-server)
 -  [Frontend Repo](https://github.com/Vanillaide/vanillaide-client-web)
 -  [React-Native Repo](https://github.com/Vanillaide/vanillaide-client)  
--  [Backend Repo](https://github.com/Vanillaide/vanillaide-server)
 
 <br/>
 
