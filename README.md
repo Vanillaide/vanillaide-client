@@ -591,8 +591,7 @@ POC 단계에서의 기술적 시도는 ```<span>```이나 ```<div>```태그를 
 # Planning
 - 프로젝트 기간: 2022. 10. 10 ~ 10. 28
 
-- `1주차` 
-  - 기획 및 설계
+- `1주차` : 기획 및 설계
   - 아이디어 검토 및 기술 스택 결정
   - Prototype Sketch
   - Database Schema 설계
@@ -603,16 +602,14 @@ POC 단계에서의 기술적 시도는 ```<span>```이나 ```<div>```태그를 
       - React Native Expo
       - Express (Node.js)
       
-- `2주차` 
-  - 기능 개발
+- `2주차` : 기능 개발
   - Sign up, Sign in 페이지
   - Project list 페이지
   - Editor 페이지, Webview 설정
   - 클라이언트 요청을 위한 API 서버 구축
   - 로그인 유저, 특정 프로젝트에 대한 전역 상태 관리 
   
-- `3주차` 
-  - 기능 개발 및 마무리
+- `3주차` : 기능 개발 및 마무리
   - Editor 페이지 기능 개선
   - Deploy 요청 및 결과 페이지
   - Deployed 페이지 : 서버사이드 렌더링
